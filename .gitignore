@@ -2,3 +2,5 @@ cube3d
 .vscode
 .DS_store
 *.txt
+*.o
+*.a
