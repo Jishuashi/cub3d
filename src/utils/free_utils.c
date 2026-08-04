@@ -1,19 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3d.h                                           :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/04 13:58:18 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/04 16:43:55 by hchartie         ###   ########.fr       */
+/*   Created: 2026/08/04 18:26:57 by hchartie          #+#    #+#             */
+/*   Updated: 2026/08/04 19:09:13 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
-# include "../libft/libft.h"
-# include "./parse_map.h"
-# include <fcntl.h>
+#include "../includes/utils.h"
 
-#endif
+void	free_map(t_map *map)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < map->heigh)
+	{
+		free(map->map[i]);
+		i++;
+	}
+	free(map->map);
+	free(map);
+}
+
+void	free_grid_map(char **map, int i)
+{
+	int	j;
+
+	j = 0;
+	while (j < i)
+		free(map[j++]);
+	free(map);
+}

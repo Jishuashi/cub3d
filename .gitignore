@@ -4,3 +4,5 @@ cube3d
 *.txt
 *.o
 *.a
+cub3d
+vgcore.*
