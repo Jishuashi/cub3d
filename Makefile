@@ -1,4 +1,4 @@
-NAME        = cube3d
+NAME        = cub3d
 
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -g
@@ -8,10 +8,13 @@ OBJ_DIR     = obj
 LIBFT_DIR   = src/libft
 LIBFT       = $(LIBFT_DIR)/libft.a
 
-SRCS        = \
-			src/cube3d.c \
+SRCS        =						\
+			src/cube3d.c			\
+			src/parse_map.c			\
+			src/utils/file_utils.c	\
+			src/utils/free_utils.c	\
 
-OBJS        = $(SRCS:.c=.o)
+OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
 vpath %.c $(sort $(dir $(SRCS)))
 

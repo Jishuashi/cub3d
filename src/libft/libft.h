@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 15:20:41 by hchartie          #+#    #+#             */
-/*   Updated: 2026/01/16 15:35:57 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/04 19:20:47 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*ft_get_next_line(int fd);
 char	*ft_gnl_strchr(const char *str, int c);
+void	ft_gnl_clear(void);
 int		ft_printf(const	char *s, ...);
 size_t	ft_putchar(int c);
 size_t	ft_putstr(char *str);
