@@ -6,18 +6,23 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/04 19:19:57 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/05 01:04:32 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cube3d.h"
 
-int	main(void)
+int	main(int ac, char *av[])
 {
 	size_t	i;
 	t_map	*map;
 
-	map = parse_map("./maps/testmap.cub");
+	if (ac != 2)
+		return (ft_putstr_fd("Error\nArg must be only a map in format .cub",
+				2), 1);
+	check_path(av[1]);
+	check_map_file(ft_open(av[1]));
+	map = parse_map(av[1]);
 	if (!map)
 		return (1);
 	i = 0;

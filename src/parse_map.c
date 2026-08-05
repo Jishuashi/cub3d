@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 14:08:53 by louka             #+#    #+#             */
-/*   Updated: 2026/08/04 19:19:38 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/04 23:52:30 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,11 @@ t_map	*parse_map(char *file)
 	res = (t_map *)malloc(sizeof(t_map));
 	if (!res)
 		return (NULL);
-	res->heigh = get_heigh_map(open(file, O_RDONLY));
-	res->map = get_map(open(file, O_RDONLY), res->heigh);
+	res->heigh = get_heigh_map(ft_open(file));
+	res->map = get_map(ft_open(file), res->heigh);
 	if (!res->map)
-	{
-		free(res);
-		return (NULL);
-	}
-	res->width = get_width_map(open(file, O_RDONLY));
+		return (free(res), NULL);
+	res->width = get_width_map(ft_open(file));
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:26:57 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/04 19:09:13 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/06 01:12:14 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,33 @@ void	free_grid_map(char **map, int i)
 	while (j < i)
 		free(map[j++]);
 	free(map);
+}
+
+void	free_parsed(char *line, int fd, char **split)
+{
+	size_t	i;
+
+	while (line)
+	{
+		free(line);
+		line = ft_get_next_line(fd);
+	}
+	i = 0;
+	while (split && split[i])
+		free(split[i++]);
+	free(split);
+	close(fd);
+}
+
+void	free_double(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

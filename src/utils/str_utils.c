@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 15:40:07 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/05 02:59:03 by hchartie         ###   ########.fr       */
+/*   Created: 2026/08/06 00:55:16 by hchartie          #+#    #+#             */
+/*   Updated: 2026/08/06 01:17:24 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/utils.h"
 
-size_t	ft_strlen(const char *str)
+char	*trim_nl(char *str)
 {
-	int	res;
+	char	*temp;
 
-	if (!str)
-		return (0);
-	res = 0;
-	while (*str)
+	temp = str;
+	str = ft_strtrim(str, "\n");
+	free(temp);
+	return (str);
+}
+
+int	check_int_str(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		res++;
-		str++;
+		if ((str[i] - 48) >= 0 && (str[i] - 48) <= 9)
+			return (0);
+		i++;
 	}
-	return (res);
+	return (1);
 }

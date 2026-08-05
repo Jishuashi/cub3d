@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 15:40:07 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/05 02:59:03 by hchartie         ###   ########.fr       */
+/*   Created: 2026/08/05 03:24:26 by hchartie          #+#    #+#             */
+/*   Updated: 2026/08/05 03:52:08 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/utils.h"
 
-size_t	ft_strlen(const char *str)
+void	ft_print_err(char *var, char *msg)
 {
-	int	res;
-
-	if (!str)
-		return (0);
-	res = 0;
-	while (*str)
-	{
-		res++;
-		str++;
-	}
-	return (res);
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(var, 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
 }
