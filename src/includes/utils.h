@@ -32,5 +32,6 @@ void	check_color(int fd, char *line, char **split_line);
 char	*trim_nl(char *str);
 int		check_int_str(char *str);
 void	free_double(char **tab);
+void	validate_color_components(char *line, int fd, char **split_line, char **split_val, char *var);
 
 #endif

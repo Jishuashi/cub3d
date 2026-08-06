@@ -42,14 +42,14 @@ char	**get_map(int fd, size_t heigh)
 	line = ft_get_next_line(fd);
 	while (line)
 	{
-		if (nb_line >= 9)
+		if (nb_line >= 8)
 			res[i++] = line;
 		else
 			free(line);
 		line = ft_get_next_line(fd);
 		nb_line++;
 	}
-	if (nb_line < 9)
+	if (nb_line < 8)
 		return (close(fd), free_grid_map(res, i), NULL);
 	res[i] = NULL;
 	close(fd);
@@ -67,7 +67,7 @@ size_t	get_heigh_map(int fd)
 	nb_line = 0;
 	while (line)
 	{
-		if (nb_line >= 9)
+		if (nb_line >= 8)
 			res++;
 		free(line);
 		line = ft_get_next_line(fd);
@@ -86,15 +86,15 @@ size_t	get_width_map(int fd)
 
 	line = ft_get_next_line(fd);
 	nb_line = 0;
+	res = 0;
 	while (line)
 	{
-		nb_line++;
-		if (nb_line == 9)
+		if (nb_line == 8)
 			res = ft_strlen(line);
 		free(line);
 		line = ft_get_next_line(fd);
+		nb_line++;
 	}
-	free(line);
 	close(fd);
 	return (res);
 }

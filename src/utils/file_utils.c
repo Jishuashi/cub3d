@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:18:41 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/06 01:20:30 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/06 01:48:00 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,7 @@ void	check_map_file(int fd)
 			return (free_parsed(line, fd, split_line), ft_print_err(""
 					, "Memory alloc failed"));
 		if (nb_line < 8)
-		{
-			printf("%zu\n", nb_line);
 			check_map_line(fd, split_line, line, id[nb_line]);
-		}
 		free(line);
 		i = 0;
 		while (split_line && split_line[i])
@@ -96,11 +93,8 @@ void	check_map_line(int fd, char **split_line, char *line, const char *id)
 	if (!id || ft_strncmp((char *)id, "\n", 1) == 0)
 		return ;
 	if (ft_strncmp(split_line[0], (char *)id, ft_strlen(id)) != 0)
-	{
-		ft_print_err(split_line[0], " the key valid/correct order");
-		free_parsed(line, fd, split_line);
-		exit(1);
-	}
+		return (ft_print_err(split_line[0], " the key valid/correct order")
+			, free_parsed(line, fd, split_line), exit(1));
 	if (ft_strlen(split_line[0]) == 2)
 	{
 		texture_path = ft_strtrim(split_line[1], "\n");
