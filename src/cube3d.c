@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/05 01:04:32 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/06 17:11:09 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char *av[])
 	t_map	*map;
 
 	if (ac != 2)
-		return (ft_putstr_fd("Error\nArg must be only a map in format .cub",
+		return (ft_putstr_fd("Error\nArg must be only a map in format .cub\n",
 				2), 1);
 	check_path(av[1]);
 	check_map_file(ft_open(av[1]));
