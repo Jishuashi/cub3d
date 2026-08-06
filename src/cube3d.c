@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/06 17:11:09 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/06 18:05:28 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	main(int ac, char *av[])
 {
-	size_t	i;
 	t_map	*map;
 
 	if (ac != 2)
@@ -25,14 +24,7 @@ int	main(int ac, char *av[])
 	map = parse_map(av[1]);
 	if (!map)
 		return (1);
-	i = 0;
-	ft_printf("Map : \n");
-	while (i < map->heigh)
-	{
-		ft_printf("%s", map->map[i]);
-		i++;
-	}
-	ft_printf("\n");
+	printf("Map is valid : %d\n", check_map(map));
 	free_map(map);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 15:48:06 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/04 18:11:58 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/06 17:57:04 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_map
 {
 	size_t	width;
 	size_t	heigh;
-	char	**map;
+	char	**grid;
 }	t_map;
 
 t_map	*parse_map(char *file);

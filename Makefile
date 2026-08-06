@@ -16,6 +16,7 @@ SRCS        =							\
 			src/utils/print_utils.c		\
 			src/utils/colors_utils.c	\
 			src/utils/str_utils.c		\
+			src/check_map.c				\
 
 OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
