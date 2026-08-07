@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:26:57 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/06 17:30:42 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/07 19:15:56 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	free_map(t_map *map)
 	i = 0;
 	while (i < map->heigh)
 	{
-		free(map->map[i]);
+		free(map->grid[i]);
 		i++;
 	}
-	free(map->map);
+	free(map->grid);
 	free(map);
 }
 
@@ -40,16 +40,11 @@ void	free_parsed(t_parsed *parsed)
 {
 	size_t	i;
 
-	while (parsed->line)
-	{
-		free(parsed->line);
-		parsed->line = ft_get_next_line(parsed->fd);
-	}
+	free_file(parsed->file);
 	i = 0;
 	while (parsed->split_line && parsed->split_line[i])
 		free(parsed->split_line[i++]);
 	free(parsed->split_line);
-	close(parsed->fd);
 }
 
 void	free_double(char **tab)
@@ -63,4 +58,18 @@ void	free_double(char **tab)
 		i++;
 	}
 	free(tab);
+}
+
+void	free_file(t_file *file)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < file->len)
+	{
+		free(file->lines[i]);
+		i++;
+	}
+	free(file->lines);
+	free(file);
 }

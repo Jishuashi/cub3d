@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:18:41 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/06 17:30:23 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/07 19:03:48 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,59 +56,51 @@ void	check_path(char *path)
 	}
 }
 
-void	check_map_file(int fd)
+t_file	*read_file(char	*path)
 {
-	t_parsed			parsed;
-	static const char	*id[] = {"NO", "SO", "WE", "EA", "\n", "F", "C", NULL};
-	size_t				nb_line;
-	size_t				i;
+	int		fd;
+	char	*line;
+	t_file	*file;
+	int		i;
 
-	parsed.line = ft_get_next_line(fd);
-	parsed.fd = fd;
-	nb_line = 0;
-	while (parsed.line)
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	line = ft_get_next_line(fd);
+	i = 0;
+	file = (t_file *)malloc(sizeof(t_file));
+	if (!file)
+		return (NULL);
+	file->len = get_len_file(open(path, O_RDONLY));
+	file->lines = (char **)malloc(sizeof(char *) * (file->len + 1));
+	if (!file)
+		return (free(file), NULL);
+	while (line)
 	{
-		parsed.split_line = ft_split(parsed.line, ' ');
-		if (!parsed.split_line)
-			return (free_parsed(&parsed), ft_print_err(""
-					, "Memory alloc failed"));
-		if (nb_line < 8)
-			check_map_line(&parsed, id[nb_line]);
-		free(parsed.line);
-		i = 0;
-		while (parsed.split_line && parsed.split_line[i])
-			free(parsed.split_line[i++]);
-		free(parsed.split_line);
-		parsed.line = ft_get_next_line(fd);
-		nb_line++;
+		file->lines[i] = line;
+		line = ft_get_next_line(fd);
+		i++;
 	}
-	close(fd);
+	file->lines[i] = NULL;
+	return (close(fd), file);
 }
 
-void	check_map_line(t_parsed *parsed, const char *id)
+size_t	get_len_file(int fd)
 {
-	int			l_fd;
-	char		*texture_path;
-	char		**split_line;
+	char	*line;
+	size_t	res;
 
-	split_line = parsed->split_line;
-	if (!id || ft_strncmp((char *)id, "\n", 1) == 0)
-		return ;
-	if (ft_strncmp(split_line[0], (char *)id, ft_strlen(id)) != 0)
-		return (ft_print_err(split_line[0], " the key valid/correct order")
-			, free_parsed(parsed), exit(1));
-	if (ft_strlen(split_line[0]) == 2)
+	if (fd < 0)
+		return (0);
+	line = ft_get_next_line(fd);
+	res = 0;
+	while (line)
 	{
-		texture_path = ft_strtrim(split_line[1], "\n");
-		if (!texture_path)
-			return (free_parsed(parsed), exit(1));
-		l_fd = open(texture_path, O_RDONLY);
-		if (l_fd < 0)
-			return (free_parsed(parsed),
-				ft_print_err(texture_path, " texture not found"),
-				free(texture_path), exit(1));
-		free(texture_path);
-		close(l_fd);
+		res++;
+		free(line);
+		line = ft_get_next_line(fd);
 	}
-	check_color(parsed);
+	free(line);
+	close(fd);
+	return (res);
 }
