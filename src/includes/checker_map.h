@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3d.h                                           :+:      :+:    :+:   */
+/*   checker_map.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/04 13:58:18 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/08 15:12:27 by hchartie         ###   ########.fr       */
+/*   Created: 2026/08/08 15:10:37 by hchartie          #+#    #+#             */
+/*   Updated: 2026/08/10 01:02:30 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
-# include "../libft/libft.h"
-# include "./parse_map.h"
-# include "./checker_map.h"
-# include <fcntl.h>
+#ifndef CHECKER_MAP_H
+# define CHECKER_MAP_H
+# include "./utils.h"
 
-int	check_map(t_map *map);
+int	check_map_format(t_file *file, int *map_line);
+void	check_key(t_parsed	*parsed, int *nb_key, char **used_keys);
 
 #endif

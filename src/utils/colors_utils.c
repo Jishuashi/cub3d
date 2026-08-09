@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 03:57:53 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/06 17:35:08 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/10 00:56:29 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	color_error_exit(t_parsed *parsed, char **sp_val, char *var
 		free_double(sp_val);
 	ft_print_err(var, msg);
 	free_parsed(parsed);
+	free_file(parsed->file);
+	free(parsed->used_key);
 	exit(1);
 }
 
@@ -42,22 +44,23 @@ void	check_color(t_parsed *parsed)
 	int		i;
 	char	**split_val;
 
-	if (parsed->split_line[0][0] == '\n')
+	if (parsed->sp_l[0][0] == '\n')
 		return ;
-	if (ft_strlen(parsed->split_line[0]) == 1)
+	if (ft_strlen(parsed->sp_l[0]) == 1)
 	{
-		if (!parsed->split_line[1])
-			color_error_exit(parsed, NULL, parsed->split_line[0],
+		parsed->sp_l[1] = reduce_space_val(&parsed->sp_l[1]);
+		if (!parsed->sp_l[1] || parsed->sp_l[1][0] == '\0')
+			color_error_exit(parsed, NULL, parsed->sp_l[0],
 				" missing color values\n");
-		split_val = ft_split(parsed->split_line[1], ',');
+		split_val = ft_split(parsed->sp_l[1], ',');
 		if (!split_val)
 			color_error_exit(parsed, NULL, "", "Memory alloc failed\n");
 		i = 0;
 		while (split_val[i])
 			i++;
 		if (i != 3)
-			color_error_exit(parsed, split_val, parsed->split_line[0],
+			color_error_exit(parsed, split_val, parsed->sp_l[0],
 				" invalid color format\n");
-		validate_color_components(parsed, split_val, parsed->split_line[0]);
+		validate_color_components(parsed, split_val, parsed->sp_l[0]);
 	}
 }

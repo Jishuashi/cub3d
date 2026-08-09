@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3d.h                                           :+:      :+:    :+:   */
+/*   err_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/04 13:58:18 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/08 15:12:27 by hchartie         ###   ########.fr       */
+/*   Created: 2026/08/09 20:47:16 by hchartie          #+#    #+#             */
+/*   Updated: 2026/08/10 00:30:40 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
-# include "../libft/libft.h"
-# include "./parse_map.h"
-# include "./checker_map.h"
-# include <fcntl.h>
+#include "../includes/utils.h"
 
-int	check_map(t_map *map);
-
-#endif
+void	err_duplicate(t_parsed	*parsed)
+{
+	ft_print_err(parsed->sp_l[0], " : Duplicate key\n");
+	free_parsed(parsed);
+	free_file(parsed->file);
+	free(parsed->used_key);
+	exit (1);
+}

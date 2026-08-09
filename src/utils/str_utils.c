@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 00:55:16 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/06 01:17:24 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/10 00:45:19 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 char	*trim_nl(char *str)
 {
-	char	*temp;
+	char	*res;
 
-	temp = str;
-	str = ft_strtrim(str, "\n");
-	free(temp);
-	return (str);
+	if (!str)
+		return (NULL);
+	res = ft_strtrim(str, "\n");
+	free (str);
+	return (res);
 }
 
 int	check_int_str(char *str)
@@ -36,4 +37,30 @@ int	check_int_str(char *str)
 		i++;
 	}
 	return (1);
+}
+
+char	*reduce_space_val(char **src)
+{
+	char	*temp;
+	char	*res;
+	size_t	i;
+
+	if (!src || !*src)
+		return (NULL);
+	res = ft_strdup("");
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (src[i])
+	{
+		temp = res;
+		res = ft_strjoin(temp, src[i]);
+		free(temp);
+		if (!res)
+			return (NULL);
+		free(src[i]);
+		src[i] = NULL;
+		i++;
+	}
+	return (res);
 }

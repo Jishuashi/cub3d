@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:18:41 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/07 19:03:48 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/10 00:53:18 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_file(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (close(fd), 0);
+		return (0);
 	close(fd);
 	return (1);
 }
@@ -66,15 +66,15 @@ t_file	*read_file(char	*path)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
-	line = ft_get_next_line(fd);
 	i = 0;
 	file = (t_file *)malloc(sizeof(t_file));
 	if (!file)
 		return (NULL);
 	file->len = get_len_file(open(path, O_RDONLY));
 	file->lines = (char **)malloc(sizeof(char *) * (file->len + 1));
-	if (!file)
+	if (!file->lines)
 		return (free(file), NULL);
+	line = ft_get_next_line(fd);
 	while (line)
 	{
 		file->lines[i] = line;
