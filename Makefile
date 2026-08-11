@@ -13,11 +13,6 @@ MLX_LIBS    = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 UNAME_S     = $(shell uname -s)
 
-ifeq ($(UNAME_S),Darwin)
-MLX         =
-MLX_LIBS    =
-endif
-
 ifeq ($(UNAME_S),Linux)
 MLX_LIBS    += -lbsd
 endif
@@ -34,11 +29,7 @@ SRCS        =							\
 			src/utils/str_utils.c		\
 			src/utils/game_init.c	\
 			src/utils/texture_paths.c	\
-			src/utils/load_xpm.c		\
-
-ifeq ($(UNAME_S),Darwin)
-SRCS       += src/utils/mlx_compat.c
-endif
+			src/utils/load_xpm.c	\
 
 OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
@@ -85,12 +76,12 @@ fclean:
 	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
 
 norm:
-	@ERR_COUNT=$$(find src \( -path 'src/minilibx-linux' -o -path 'src/utils/mlx_compat.c' \) -prune -o \( -name '*.c' -o -name '*.h' \) -print | xargs norminette | grep "Error" | wc -l); \
+	@ERR_COUNT=$$(find src -path 'src/minilibx-linux' -prune -o \( -name '*.c' -o -name '*.h' \) -print | xargs norminette | grep "Error" | wc -l); \
 	if [ $$ERR_COUNT -eq 0 ]; then \
 		printf "$(YELLOW)Norminette: TOUT EST PARFAIT !$(RESET)\n"; \
 	else \
 		printf "$(RED)Norminette: ERREURS TROUVÉES :$(RESET)\n"; \
-		find src \( -path 'src/minilibx-linux' -o -path 'src/utils/mlx_compat.c' \) -prune -o \( -name '*.c' -o -name '*.h' \) -print | xargs norminette | grep "Error"; \
+		find src -path 'src/minilibx-linux' -prune -o \( -name '*.c' -o -name '*.h' \) -print | xargs norminette | grep "Error"; \
 	fi
 
 re: fclean all
