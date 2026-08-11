@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 15:23:12 by louka             #+#    #+#             */
-/*   Updated: 2026/08/07 15:46:41 by louka            ###   ########.fr       */
+/*   Updated: 2026/08/11 12:08:44 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	cleanup_mlx(t_game *game)
 {
 	if (!game)
 		return ;
+	if (game->textures)
+		free_textures_struct(game->mlx, &game->textures);
 	if (game->frame.img)
 		mlx_destroy_image(game->mlx, game->frame.img);
 	if (game->win)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_xpm.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 14:41:05 by louka             #+#    #+#             */
-/*   Updated: 2026/08/07 15:47:06 by louka            ###   ########.fr       */
+/*   Updated: 2026/08/11 12:22:15 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_textures(void *mlx, t_texture *textures, char **paths)
 	free_single_texture(mlx, &textures->sud);
 	free_single_texture(mlx, &textures->ouest);
 	free_single_texture(mlx, &textures->est);
-    free(paths);
+	free(paths);
 }
 
 static int	load_single_texture(void *mlx, t_img *tex, char *path)
@@ -60,7 +60,6 @@ int	init_textures(void *mlx, t_texture *textures, char *path)
 	textures->sud.img = NULL;
 	textures->ouest.img = NULL;
 	textures->est.img = NULL;
-
 	if (!load_single_texture(mlx, &textures->nord, paths[0]))
 		return (free_textures(mlx, textures, paths), 0);
 	if (!load_single_texture(mlx, &textures->sud, paths[1]))

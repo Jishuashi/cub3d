@@ -3,28 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/06 17:11:09 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/11 12:22:15 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cube3d.h"
 
-int	main(int ac, char *av[])
+static void	print_map(t_map *map)
 {
 	size_t	i;
-	t_map	*map;
 
-	if (ac != 2)
-		return (ft_putstr_fd("Error\nArg must be only a map in format .cub\n",
-				2), 1);
-	check_path(av[1]);
-	check_map_file(ft_open(av[1]));
-	map = parse_map(av[1]);
-	if (!map)
-		return (1);
 	i = 0;
 	ft_printf("Map : \n");
 	while (i < map->heigh)
@@ -33,6 +24,31 @@ int	main(int ac, char *av[])
 		i++;
 	}
 	ft_printf("\n");
+}
+
+static int	run_program(char *path)
+{
+	t_game	game;
+	t_map	*map;
+
+	game = (t_game){0};
+	check_path(path);
+	check_map_file(ft_open(path));
+	map = parse_map(path);
+	if (!map)
+		return (1);
+	if (!init_game(&game, path))
+		return (free_map(map), 1);
+	print_map(map);
+	cleanup_mlx(&game);
 	free_map(map);
 	return (0);
+}
+
+int	main(int ac, char *av[])
+{
+	if (ac != 2)
+		return (ft_putstr_fd("Error\nArg must be only a map in format .cub\n",
+				2), 1);
+	return (run_program(av[1]));
 }

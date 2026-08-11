@@ -32,6 +32,8 @@ SRCS        =							\
 			src/utils/print_utils.c		\
 			src/utils/colors_utils.c	\
 			src/utils/str_utils.c		\
+			src/utils/game_init.c	\
+			src/utils/texture_paths.c	\
 			src/utils/load_xpm.c		\
 
 ifeq ($(UNAME_S),Darwin)
@@ -83,12 +85,12 @@ fclean:
 	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
 
 norm:
-	@ERR_COUNT=$$(norminette src/ | grep "Error" | wc -l); \
+	@ERR_COUNT=$$(find src \( -path 'src/minilibx-linux' -o -path 'src/utils/mlx_compat.c' \) -prune -o \( -name '*.c' -o -name '*.h' \) -print | xargs norminette | grep "Error" | wc -l); \
 	if [ $$ERR_COUNT -eq 0 ]; then \
 		printf "$(YELLOW)Norminette: TOUT EST PARFAIT !$(RESET)\n"; \
 	else \
 		printf "$(RED)Norminette: ERREURS TROUVÉES :$(RESET)\n"; \
-		norminette src/ | grep "Error"; \
+		find src \( -path 'src/minilibx-linux' -o -path 'src/utils/mlx_compat.c' \) -prune -o \( -name '*.c' -o -name '*.h' \) -print | xargs norminette | grep "Error"; \
 	fi
 
 re: fclean all
