@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:18:41 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/06 17:30:23 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/11 12:42:12 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,10 @@ void	check_map_line(t_parsed *parsed, const char *id)
 		texture_path = ft_strtrim(split_line[1], "\n");
 		if (!texture_path)
 			return (free_parsed(parsed), exit(1));
+		if (ft_strlen(texture_path) < 4 || ft_strncmp(texture_path
+			+ ft_strlen(texture_path) - 4, ".xpm", 4) != 0)
+			return (ft_print_err(texture_path, " texture must be .xpm"),
+				free(texture_path), free_parsed(parsed), exit(1));
 		l_fd = open(texture_path, O_RDONLY);
 		if (l_fd < 0)
 			return (free_parsed(parsed),

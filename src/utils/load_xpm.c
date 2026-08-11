@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 14:41:05 by louka             #+#    #+#             */
-/*   Updated: 2026/08/11 12:22:15 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/08/11 12:42:12 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void	free_textures(void *mlx, t_texture *textures, char **paths)
 
 static int	load_single_texture(void *mlx, t_img *tex, char *path)
 {
+	if (!path || ft_strlen(path) < 4 || ft_strncmp(path + ft_strlen(path) - 4,
+			".xpm", 4) != 0)
+		return (ft_print_err(path ? path : "texture", " texture must be .xpm"), 0);
 	tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
 	if (!tex->img)
 		return (0);

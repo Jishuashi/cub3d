@@ -6,7 +6,7 @@
 /*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/11 12:22:15 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/08/11 12:39:40 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ static int	run_program(char *path)
 	if (!map)
 		return (1);
 	if (!init_game(&game, path))
-		return (free_map(map), 1);
+		return (printf("error empty .xpm or mlx init failed\n"),
+			free_map(map), 1);
+	printf("mlx and texture loaded\n");
 	print_map(map);
 	cleanup_mlx(&game);
 	free_map(map);
