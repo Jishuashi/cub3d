@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/10 01:07:14 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:57:37 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int ac, char *av[])
 	if (!check_map_format(file, &map_line))
 		return (ft_print_err("", "Memory allocation failed\n"), 1);
 	(void) map;
+	printf("Map Good\n");
 	free_file(file);
 	return (0);
 }

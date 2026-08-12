@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 18:15:30 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/10 01:27:40 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/12 17:28:39 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	check_key(t_parsed	*par, int *nb_key, char **u_keys)
 
 	i = 0;
 	e = -1;
+	if (*nb_key < 6)
+		err_map_pos(par);
 	while (id[i])
 	{
 		if (*nb_key < 6 && !ft_strncmp(par->sp_l[0], id[i], ft_strlen(id[i])))
@@ -58,9 +60,7 @@ void	check_key(t_parsed	*par, int *nb_key, char **u_keys)
 					err_duplicate(par);
 			if (ft_strlen(par->sp_l[0]) == 2)
 				if (!check_file(par->sp_l[1]))
-					return (free_file(par->file)
-						, ft_print_err(par->sp_l[1], " File not found\n")
-						, free_parsed(par), free(par->used_key), exit (1));
+					err_file(par);
 			u_keys[*nb_key] = id[i];
 			*nb_key += 1;
 		}
@@ -70,6 +70,8 @@ void	check_key(t_parsed	*par, int *nb_key, char **u_keys)
 
 int	check_if_map(t_parsed *parsed, int nb_keys)
 {
+	if (!parsed->sp_l)
+		return (0);
 	if (parsed->sp_l[0] && parsed->sp_l[0][0] == '1'
 		&& nb_keys == 6)
 		return (1);
