@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/09 20:47:16 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/12 17:31:39 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/13 16:43:34 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	err_map_pos(t_parsed	*par)
 	{
 		if (par->sp_l[0][i] == ' ' || par->sp_l[0][i] == '1')
 			return (free_file(par->file)
-				, ft_print_err("", "Map not at EOF\n"),
+				, ft_print_err("", "Map not at EOF or Less than 6 keys\n"),
 				free_parsed(par), free(par->used_key), exit (1));
 		i++;
 	}
