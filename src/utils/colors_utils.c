@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 03:57:53 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/10 00:56:29 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/13 18:42:02 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	check_color(t_parsed *parsed)
 	int		i;
 	char	**split_val;
 
+	if (!parsed->sp_l || !parsed->sp_l[0])
+		return ;
 	if (parsed->sp_l[0][0] == '\n')
 		return ;
 	if (ft_strlen(parsed->sp_l[0]) == 1)

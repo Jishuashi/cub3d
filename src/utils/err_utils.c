@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/09 20:47:16 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/13 16:43:34 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/13 18:38:12 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ void	err_map_pos(t_parsed	*par)
 	int					i;
 
 	i = 0;
-	while (id[i++])
+	if (!par->sp_l || !par->sp_l[0] || !par->sp_l[1])
+		return ;
+	while (id[i])
 	{
-		if (!id[i])
-			break ;
 		if (!ft_strncmp(par->sp_l[0], id[i], ft_strlen(id[i])))
 			return ;
+		i++;
 	}
 	i = 0;
 	while (par->sp_l[0][i])

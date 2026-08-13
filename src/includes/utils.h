@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:08:48 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/11 16:52:07 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/13 17:37:00 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_file	*read_file(char	*path);
 void	free_file(t_file *file);
 void	err_duplicate(t_parsed	*parsed);
 char	*reduce_space_val(char **src);
-int		check_if_map(t_parsed *parsed, int nb_keys);
 void	err_file(t_parsed *par);
 void	err_map_pos(t_parsed *par);
 

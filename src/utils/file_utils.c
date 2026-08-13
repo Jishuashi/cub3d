@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:18:41 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/10 00:53:18 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/13 17:34:29 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_file	*read_file(char	*path)
 	int		fd;
 	char	*line;
 	t_file	*file;
-	int		i;
+	size_t	i;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
@@ -82,7 +82,7 @@ t_file	*read_file(char	*path)
 		i++;
 	}
 	file->lines[i] = NULL;
-	return (close(fd), file);
+	return ((file->len = i), close(fd), file);
 }
 
 size_t	get_len_file(int fd)
