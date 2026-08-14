@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 18:15:30 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/13 19:31:59 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/14 19:52:57 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,19 @@ void	check_key(t_parsed	*par, int *nb_key, char **u_keys)
 
 	i = 0;
 	e = -1;
-	if (*nb_key < 6)
-		err_map_pos(par);
 	while (id[i])
 	{
-		if (*nb_key < 6 && !ft_strncmp(par->sp_l[0], id[i], ft_strlen(id[i])))
+		if (!ft_strncmp(par->sp_l[0], id[i], ft_strlen(id[i])))
 		{
+			if (*nb_key >= 6)
+				ft_print_err("", "Too many key\n", par);
 			while (++e < *nb_key)
 				if (!ft_strncmp(par->sp_l[0], u_keys[e], ft_strlen(u_keys[e])))
-					err_duplicate(par);
+					ft_print_err(par->sp_l[0], " duplicated key\n", par);
 			if (ft_strlen(par->sp_l[0]) == 2)
 				if (!check_file(par->sp_l[1]))
-					err_file(par);
+					ft_print_err(par->sp_l[1],
+						" file not found or no permission\n", par);
 			u_keys[*nb_key] = id[i];
 			*nb_key += 1;
 		}
@@ -70,38 +71,35 @@ void	check_key(t_parsed	*par, int *nb_key, char **u_keys)
 
 int	check_if_map(t_parsed *par, int nb_keys)
 {
-	static char			*id[] = {"NO", "SO", "WE", "EA", "F", "C", NULL};
-	int					i;
+	int			is_map_line;
+	static char	*id[] = {"NO", "SO", "WE", "EA", "F", "C", NULL};
+	int			i;
 
-	if (!par->sp_l)
+	i = 0;
+	is_map_line = 0;
+	if (!par->sp_l || !par->sp_l[0] || par->sp_l[0][0] == '\n')
 		return (0);
-	if (par->sp_l[0] && par->sp_l[0][0] == '1' && nb_keys == 6)
-		return (1);
-	if (nb_keys == 6 && par->sp_l[0] && par->sp_l[0][0] != '\n')
+	while (id[i])
 	{
-		i = 0;
-		while (id[i])
-		{
-			if (!ft_strncmp(par->sp_l[0], id[i], ft_strlen(id[i]))
-				&& ft_strlen(par->sp_l[0]) == ft_strlen(id[i]))
-				return (0);
-			else
-				i++;
-		}
-		ft_print_err("", " Invalid char in map or invalid key\n");
-		return (free(par->used_key), free_file(par->file)
-			, free_parsed(par), exit(1), 1);
+		if (ft_strncmp(par->sp_l[0], id[i], ft_strlen(id[i])) == 0)
+			return (0);
+		i++;
 	}
+	if (ft_strchr(" 10", par->sp_l[0][0]))
+		is_map_line = 1;
+	if (is_map_line && nb_keys < 6)
+		err_map_pos(par);
+	else if (is_map_line && nb_keys == 6)
+		return (1);
+	else if (!is_map_line && nb_keys == 6)
+		ft_print_err("", "Invalid char in map or invalid key\n", par);
 	return (0);
 }
 
 void	check_no_map(int nb_keys, int current, t_file *file, char **used)
 {
 	if (nb_keys == 6 && (size_t)current == (file->len))
-	{
-		ft_print_err("", " No map in file\n");
-		exit(1);
-	}
+		ft_print_err("", "No map in file\n", NULL);
 	free(used);
 	(void)current;
 }

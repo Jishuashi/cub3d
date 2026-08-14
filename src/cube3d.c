@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/13 16:55:13 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/14 19:35:15 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	main(int ac, char *av[])
 	map_line = 0;
 	check_path(av[1]);
 	if (!check_file(av[1]))
-		return (ft_print_err(av[1], " map path invalid\n"), 1);
+		return (ft_print_err(av[1], " map path invalid\n", NULL), 1);
 	file = read_file(av[1]);
 	if (!file)
-		return (ft_print_err("", "Memory allocation failed\n"), 1);
+		return (ft_print_err("", "Memory allocation failed\n", NULL), 1);
 	if (!check_map_format(file, &map_line))
-		return (ft_print_err("", "Memory allocation failed\n"), 1);
+		return (ft_print_err("", "Memory allocation failed\n", NULL), 1);
 	(void) map;
 	printf("Map Good\nMap at line %d\n", map_line);
 	free_file(file);

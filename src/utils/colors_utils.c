@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 03:57:53 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/13 18:42:02 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/14 19:35:59 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@ static void	color_error_exit(t_parsed *parsed, char **sp_val, char *var
 {
 	if (sp_val)
 		free_double(sp_val);
-	ft_print_err(var, msg);
-	free_parsed(parsed);
-	free_file(parsed->file);
-	free(parsed->used_key);
-	exit(1);
+	ft_print_err(var, msg, parsed);
 }
 
 void	validate_color_components(t_parsed *parsed, char **split_val, char *var)
