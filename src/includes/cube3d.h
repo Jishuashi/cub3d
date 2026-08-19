@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:18 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/13 18:46:32 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/19 19:46:01 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 # include "./cub_format_checker.h"
 # include <fcntl.h>
 
-int	check_map(t_map *map);
+int		check_map(t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 18:15:30 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/14 19:52:57 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:14:06 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_map_format(t_file *file, int *map_line)
 	{
 		par.sp_l = ft_split(file->lines[i], ' ');
 		if (!par.sp_l)
-			return (free(par.used_key), free_file(file), 0);
+			return (free(par.used_key), 0);
 		if (par.sp_l[0] && par.sp_l[1])
 			par.sp_l[1] = trim_nl(par.sp_l[1]);
 		check_key(&par, &nb_keys, par.used_key);

@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:18:41 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/13 17:34:29 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/19 19:51:09 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,35 +56,6 @@ void	check_path(char *path)
 	}
 }
 
-t_file	*read_file(char	*path)
-{
-	int		fd;
-	char	*line;
-	t_file	*file;
-	size_t	i;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	i = 0;
-	file = (t_file *)malloc(sizeof(t_file));
-	if (!file)
-		return (NULL);
-	file->len = get_len_file(open(path, O_RDONLY));
-	file->lines = (char **)malloc(sizeof(char *) * (file->len + 1));
-	if (!file->lines)
-		return (free(file), NULL);
-	line = ft_get_next_line(fd);
-	while (line)
-	{
-		file->lines[i] = line;
-		line = ft_get_next_line(fd);
-		i++;
-	}
-	file->lines[i] = NULL;
-	return ((file->len = i), close(fd), file);
-}
-
 size_t	get_len_file(int fd)
 {
 	char	*line;
@@ -92,15 +63,15 @@ size_t	get_len_file(int fd)
 
 	if (fd < 0)
 		return (0);
-	line = ft_get_next_line(fd);
+	line = gnl_cub(fd);
 	res = 0;
 	while (line)
 	{
 		res++;
 		free(line);
-		line = ft_get_next_line(fd);
+		line = gnl_cub(fd);
 	}
-	free(line);
-	close(fd);
-	return (res);
+	if (errno != 0)
+		return (close(fd), free(line), 0);
+	return (close(fd), free(line), res);
 }

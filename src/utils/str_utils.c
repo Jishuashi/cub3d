@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 00:55:16 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/10 00:45:19 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/19 20:05:06 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ int	check_int_str(char *str)
 	return (1);
 }
 
+static void	free_src(char **src, size_t i)
+{
+	while (src[i])
+	{
+		free(src[i]);
+		src[i] = NULL;
+		i++;
+	}
+}
+
 char	*reduce_space_val(char **src)
 {
 	char	*temp;
@@ -49,7 +59,7 @@ char	*reduce_space_val(char **src)
 		return (NULL);
 	res = ft_strdup("");
 	if (!res)
-		return (NULL);
+		return (free_src(src, 0), NULL);
 	i = 0;
 	while (src[i])
 	{
@@ -57,7 +67,7 @@ char	*reduce_space_val(char **src)
 		res = ft_strjoin(temp, src[i]);
 		free(temp);
 		if (!res)
-			return (NULL);
+			return (free_src(src, i), NULL);
 		free(src[i]);
 		src[i] = NULL;
 		i++;

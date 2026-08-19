@@ -19,6 +19,8 @@ SRCS        =							\
 			src/check_map.c				\
 			src/cub_format_checker.c	\
 			src/utils/err_utils.c		\
+			src/utils/read_utils.c		\
+			src/gnl_cub.c 				\
 
 
 OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
