@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:26:57 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/13 17:32:27 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/20 13:50:02 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,15 @@ void	free_file(t_file *file)
 	i = 0;
 	if (!file)
 		return ;
-	while (i < file->len)
+	if (file->lines)
 	{
-		free(file->lines[i]);
-		i++;
+		while (i < file->len)
+		{
+			if (file->lines[i])
+				free(file->lines[i]);
+			i++;
+		}
+		free(file->lines);
 	}
-	free(file->lines);
 	free(file);
 }

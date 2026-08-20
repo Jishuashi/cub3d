@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 19:51:20 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/19 19:52:40 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/20 13:48:16 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_file	*read_file(char *path)
 	file->len = get_len_file(fd_len);
 	file->lines = malloc(sizeof(char *) * (file->len + 1));
 	if (!file->lines || file->len == 0)
-		return (close(fd), free(file->lines), free(file), NULL);
+		return (close(fd), free_file(file), NULL);
 	if (!fill_file(file, fd))
 		return (close(fd), free_file(file), NULL);
 	close(fd);
