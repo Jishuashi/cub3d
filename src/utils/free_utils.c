@@ -38,12 +38,18 @@ void	free_grid_map(char **map, int i)
 
 void	free_parsed(t_parsed *parsed)
 {
+	int		i;
+
 	if (!parsed)
 		return ;
 	if (parsed->sp_l)
 	{
-		free(parsed->sp_l[0]);
-		free(parsed->sp_l[1]);
+		i = 0;
+		while (parsed->sp_l[i])
+		{
+			free(parsed->sp_l[i]);
+			i++;
+		}
 		free(parsed->sp_l);
 		parsed->sp_l = NULL;
 	}

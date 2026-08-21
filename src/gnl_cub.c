@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:38:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/19 19:44:59 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/21 18:47:48 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*gnl_cub(int fd)
 {
 	static char	*acc;
 	char		*line;
+	char		*new_acc;
 
 	errno = 0;
 	acc = ft_put_in_acc(fd, acc);
@@ -39,7 +40,10 @@ char	*gnl_cub(int fd)
 	line = ft_get_line(acc);
 	if (!line)
 		return (free(acc), acc = NULL, NULL);
-	acc = ft_clean_acc(acc);
+	new_acc = ft_clean_acc(acc);
+	if (!new_acc && errno != 0)
+		return (free(line), acc = NULL, NULL);
+	acc = new_acc;
 	return (line);
 }
 
