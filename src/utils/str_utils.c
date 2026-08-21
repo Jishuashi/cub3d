@@ -6,12 +6,21 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 00:55:16 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/19 20:05:06 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 01:26:12 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
+/**
+ * Removes trailing newline characters from a string.
+ *
+ * The function trims the '\n' characters from the input string and frees the
+ * original buffer once the cleaned copy is created.
+ *
+ * @param str String to trim.
+ * @return Newly allocated trimmed string, or NULL on failure.
+ */
 char	*trim_nl(char *str)
 {
 	char	*res;
@@ -25,6 +34,12 @@ char	*trim_nl(char *str)
 	return (res);
 }
 
+/**
+ * Verifies whether a string contains only digits.
+ *
+ * @param str String to validate.
+ * @return 1 if all characters are digits, 0 otherwise.
+ */
 int	check_int_str(char *str)
 {
 	int	i;
@@ -51,6 +66,15 @@ static void	free_src(char **src, size_t i)
 	}
 }
 
+/**
+ * Concatenates all non-empty strings from a split array into one string.
+ *
+ * The resulting string is built from the provided tokens and the source entries
+ * are freed afterward.
+ *
+ * @param src NULL-terminated array of strings to merge.
+ * @return A concatenated string, or NULL on allocation failure.
+ */
 char	*reduce_space_val(char **src)
 {
 	char	*temp;

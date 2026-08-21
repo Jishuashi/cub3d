@@ -6,12 +6,17 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:26:57 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/20 13:50:02 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 01:26:12 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
+/**
+ * Frees all memory allocated for a parsed map.
+ *
+ * @param map Pointer to the map structure to free.
+ */
 void	free_map(t_map *map)
 {
 	size_t	i;
@@ -26,6 +31,12 @@ void	free_map(t_map *map)
 	free(map);
 }
 
+/**
+ * Frees a grid of strings up to the given index.
+ *
+ * @param map Pointer to the string array to free.
+ * @param i Number of elements to free.
+ */
 void	free_grid_map(char **map, int i)
 {
 	int	j;
@@ -36,6 +47,11 @@ void	free_grid_map(char **map, int i)
 	free(map);
 }
 
+/**
+ * Frees the tokenized parsed line and its associated split array.
+ *
+ * @param parsed Pointer to the parsing state to clean.
+ */
 void	free_parsed(t_parsed *parsed)
 {
 	int		i;
@@ -55,6 +71,11 @@ void	free_parsed(t_parsed *parsed)
 	}
 }
 
+/**
+ * Frees a NULL-terminated array of strings.
+ *
+ * @param tab Pointer to the string array.
+ */
 void	free_double(char **tab)
 {
 	int	i;
@@ -68,6 +89,11 @@ void	free_double(char **tab)
 	free(tab);
 }
 
+/**
+ * Frees the file structure and all strings it contains.
+ *
+ * @param file Pointer to the parsed file structure.
+ */
 void	free_file(t_file *file)
 {
 	size_t	i;

@@ -6,12 +6,22 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 14:08:53 by louka             #+#    #+#             */
-/*   Updated: 2026/08/22 01:19:23 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 01:25:52 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/parse_map.h"
 
+/**
+ * Builds a map structure starting from the map section of a parsed file.
+ *
+ * The function calculates the number of lines in the map, copies the map rows,
+ * and stores the resulting width and grid into a newly allocated structure.
+ *
+ * @param file Parsed file structure containing all loaded lines.
+ * @param i_line Index of the first row of the map section.
+ * @return A newly allocated map on success, or NULL on allocation failure.
+ */
 t_map	*parse_map(t_file *file, int i_line)
 {
 	t_map	*res;
@@ -27,6 +37,17 @@ t_map	*parse_map(t_file *file, int i_line)
 	return (res);
 }
 
+/**
+ * Copies the map section into a dedicated grid of rows.
+ *
+ * Each map line is duplicated and trimmed from a trailing newline before being
+ * stored into the returned array. The last entry is set to NULL as a terminator.
+ *
+ * @param file Parsed file structure.
+ * @param i_line Index of the first map line.
+ * @param heigh Number of rows to be copied.
+ * @return A NULL-terminated grid of strings representing the map.
+ */
 char	**get_map(t_file *file, int i_line, size_t heigh)
 {
 	char	**res;
@@ -56,6 +77,13 @@ char	**get_map(t_file *file, int i_line, size_t heigh)
 	return (res);
 }
 
+/**
+ * Counts the number of rows remaining in the map section.
+ *
+ * @param file Parsed file structure.
+ * @param i_line Index of the first map row.
+ * @return The number of lines in the map.
+ */
 size_t	get_heigh_map(t_file *file, int i_line)
 {
 	size_t	res;
@@ -71,6 +99,13 @@ size_t	get_heigh_map(t_file *file, int i_line)
 	return (res);
 }
 
+/**
+ * Returns the width of the first row of the map.
+ *
+ * @param file Parsed file structure.
+ * @param i_line Index of the first map row.
+ * @return The width of the map row as a string length.
+ */
 size_t	get_width_map(t_file *file, int i_line)
 {
 	return (ft_strlen(file->lines[i_line]));

@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:38:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/21 18:47:48 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 01:25:52 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ static char	*ft_get_line(char *acc);
 static char	*ft_clean_acc(char *acc);
 
 /**
- * @brief Get the next line of the  file descriptor by 
- * a unique call
- * 
- * @param fd The file descriptor
- * @return char* The next line in the file
+ * Reads one line from the given file descriptor.
+ *
+ * The function accumulates data until a newline is found, extracts the current
+ * line, and keeps the remainder in a static accumulator for the next call.
+ *
+ * @param fd File descriptor to read from.
+ * @return The next line as a newly allocated string, or NULL on EOF or failure.
  */
 char	*gnl_cub(int fd)
 {

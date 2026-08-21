@@ -6,12 +6,18 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:18:41 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/20 13:48:05 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 01:26:12 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
+/**
+ * Checks whether a file can be opened for reading.
+ *
+ * @param path Path to the file to inspect.
+ * @return 1 if the file exists and is accessible, 0 otherwise.
+ */
 int	check_file(char *path)
 {
 	int	fd;
@@ -23,6 +29,15 @@ int	check_file(char *path)
 	return (1);
 }
 
+/**
+ * Opens a file for reading and exits on failure.
+ *
+ * This helper is used for required map assets. If the file cannot be opened,
+ * it prints an error message and terminates the program.
+ *
+ * @param path Path to the file to open.
+ * @return The file descriptor associated with the opened file.
+ */
 int	ft_open(char *path)
 {
 	int	fd;
@@ -39,6 +54,14 @@ int	ft_open(char *path)
 	return (fd);
 }
 
+/**
+ * Validates the file extension and the presence of a name for a .cub map.
+ *
+ * The function ensures the path ends with the expected extension and rejects
+ * empty or invalid map names.
+ *
+ * @param path Path to validate.
+ */
 void	check_path(char *path)
 {
 	size_t	len;
@@ -56,6 +79,15 @@ void	check_path(char *path)
 	}
 }
 
+/**
+ * Counts the number of lines stored in a file descriptor.
+ *
+ * The function reads every remaining line using the custom GNL and returns the
+ * number of lines found before EOF. If an error occurs, it returns 0.
+ *
+ * @param fd File descriptor to inspect.
+ * @return Number of lines found in the file.
+ */
 size_t	get_len_file(int fd)
 {
 	char	*line;

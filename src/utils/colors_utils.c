@@ -6,12 +6,20 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 03:57:53 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/14 19:35:59 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 01:26:12 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
+/**
+ * Frees color parsing resources and exits with a formatted error.
+ *
+ * @param parsed Parsing context to clean before exit.
+ * @param sp_val Split color values to free.
+ * @param var Name of the invalid color field.
+ * @param msg Error message to print.
+ */
 static void	color_error_exit(t_parsed *parsed, char **sp_val, char *var
 	, char *msg)
 {
@@ -20,6 +28,16 @@ static void	color_error_exit(t_parsed *parsed, char **sp_val, char *var
 	ft_print_err(var, msg, parsed);
 }
 
+/**
+ * Validates the values extracted from a color definition.
+ *
+ * Every component must be a numeric string. If a non-digit is found, the
+ * function aborts with the appropriate parser error.
+ *
+ * @param parsed Current parsing state.
+ * @param split_val String array containing the RGB components.
+ * @param var Name of the color field being validated.
+ */
 void	validate_color_components(t_parsed *parsed, char **split_val, char *var)
 {
 	int		i;
@@ -39,6 +57,14 @@ void	validate_color_components(t_parsed *parsed, char **split_val, char *var)
 	free_double(split_val);
 }
 
+/**
+ * Parses and validates a color line declared in the map header.
+ *
+ * The function expects a value formatted as three comma-separated integers, and
+ * validates the numeric content before freeing temporary split data.
+ *
+ * @param parsed Parsing context containing the current line.
+ */
 void	check_color(t_parsed *parsed)
 {
 	int		i;

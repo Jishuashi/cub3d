@@ -6,12 +6,20 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/09 20:47:16 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/14 19:29:17 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 01:26:12 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
+/**
+ * Validates the placement of the map section in the file.
+ *
+ * The function ensures that the map is not found before all required keys are
+ * declared and raises an error if the map is placed in the wrong section.
+ *
+ * @param par Parsing context containing the current split line.
+ */
 void	err_map_pos(t_parsed	*par)
 {
 	static char			*id[] = {"NO", "SO", "WE", "EA", "F", "C", NULL};

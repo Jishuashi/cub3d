@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 18:15:30 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/21 19:39:01 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 01:26:12 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ static int	prepare_line(t_parsed *par, char *line)
 	return (1);
 }
 
+/**
+ * Validates the map file format and locates the first map row.
+ *
+ * The function iterates through the file content, parses each line, checks the
+ * header keys, and identifies the start index of the map definition.
+ *
+ * @param file Parsed file structure.
+ * @param map_line Output pointer receiving the map starting line index.
+ * @return 1 on success, 0 on allocation or format failure.
+ */
 int	check_map_format(t_file *file, int *map_line)
 {
 	t_parsed	par;
@@ -84,6 +94,16 @@ void	check_key(t_parsed *par, int *nb_key, char **u_keys)
 	}
 }
 
+/**
+ * Determines whether the current parsed line begins the map section.
+ *
+ * The function rejects invalid header entries and accepts only valid map rows
+ * once the required keys have been declared.
+ *
+ * @param par Parsing context of the current line.
+ * @param nb_keys Number of keys already discovered in the header.
+ * @return 1 when the map starts at the current line, 0 otherwise.
+ */
 int	check_if_map(t_parsed *par, int nb_keys)
 {
 	int			is_map_line;
@@ -111,6 +131,14 @@ int	check_if_map(t_parsed *par, int nb_keys)
 	return (0);
 }
 
+/**
+ * Handles the case where no valid map section was found in the file.
+ *
+ * @param nb_keys Number of parsed header keys.
+ * @param current Current line index being processed.
+ * @param file File structure to free if needed.
+ * @param used Array of used keys.
+ */
 void	check_no_map(int nb_keys, int current, t_file *file, char **used)
 {
 	free(used);
