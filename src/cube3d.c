@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/19 20:13:45 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 00:53:22 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int ac, char *av[])
 {
-	t_map	*map;
+	t_game	data;
 	t_file	*file;
 	int		map_line;
 
@@ -31,8 +31,30 @@ int	main(int ac, char *av[])
 	if (!check_map_format(file, &map_line))
 		return (free_file(file)
 			, ft_print_err("", "Memory allocation failed\n", NULL), 1);
-	(void) map;
-	printf("Map Good\nMap at line %d\n", map_line);
-	free_file(file);
-	return (0);
+	data.map = parse_map(file, map_line);
+	if (!data.map)
+		return (free_file(file)
+			, ft_print_err("", "Memory allocation failed\n", NULL), 1);
+	init(&data);
+	return (free_file(file), free_map(data.map), 0);
+}
+
+void	init(t_game *data)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	printf("Map:\n");
+	while (i < data->map->heigh)
+	{
+		j = 0;
+		while (j < data->map->width)
+		{
+			printf("%c", data->map->grid[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
 }

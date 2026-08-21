@@ -6,95 +6,72 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 14:08:53 by louka             #+#    #+#             */
-/*   Updated: 2026/08/06 17:57:19 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 01:19:23 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/parse_map.h"
 
-t_map	*parse_map(char *file)
+t_map	*parse_map(t_file *file, int i_line)
 {
 	t_map	*res;
 
 	res = (t_map *)malloc(sizeof(t_map));
 	if (!res)
 		return (NULL);
-	res->heigh = get_heigh_map(ft_open(file));
-	res->grid = get_map(ft_open(file), res->heigh);
+	res->heigh = get_heigh_map(file, i_line);
+	res->grid = get_map(file, i_line, res->heigh);
 	if (!res->grid)
 		return (free(res), NULL);
-	res->width = get_width_map(ft_open(file));
+	res->width = get_width_map(file, i_line);
 	return (res);
 }
 
-char	**get_map(int fd, size_t heigh)
+char	**get_map(t_file *file, int i_line, size_t heigh)
 {
 	char	**res;
 	char	*line;
 	size_t	i;
-	int		nb_line;
+	size_t	e;
 
 	res = (char **)malloc(sizeof(char *) * (heigh + 1));
 	if (!res)
-		return (close(fd), NULL);
-	i = 0;
-	nb_line = 0;
-	line = ft_get_next_line(fd);
-	while (line)
+		return (NULL);
+	i = (size_t)i_line;
+	while (file->lines[i])
 	{
-		if (nb_line >= 8)
-			res[i++] = line;
-		else
-			free(line);
-		line = ft_get_next_line(fd);
-		nb_line++;
+		line = ft_strdup(file->lines[i]);
+		if (!line)
+			return (free_grid_map(res, i - i_line), NULL);
+		e = 0;
+		while (line[e++])
+		{
+			if (line[e] == '\n')
+				line[e] = '\0';
+		}
+		res[i - i_line] = line;
+		i++;
 	}
-	if (nb_line < 8)
-		return (close(fd), free_grid_map(res, i), NULL);
-	res[i] = NULL;
-	close(fd);
+	res[i - i_line] = NULL;
 	return (res);
 }
 
-size_t	get_heigh_map(int fd)
+size_t	get_heigh_map(t_file *file, int i_line)
 {
 	size_t	res;
-	int		nb_line;
-	char	*line;
+	size_t	i;
 
-	line = ft_get_next_line(fd);
 	res = 0;
-	nb_line = 0;
-	while (line)
+	i = (size_t)i_line;
+	while (file->lines[i])
 	{
-		if (nb_line >= 8)
-			res++;
-		free(line);
-		line = ft_get_next_line(fd);
-		nb_line++;
+		res++;
+		i++;
 	}
-	if (fd >= 0)
-		close(fd);
 	return (res);
 }
 
-size_t	get_width_map(int fd)
+size_t	get_width_map(t_file *file, int i_line)
 {
-	size_t	res;
-	char	*line;
-	size_t	nb_line;
-
-	line = ft_get_next_line(fd);
-	nb_line = 0;
-	res = 0;
-	while (line)
-	{
-		if (nb_line == 8)
-			res = ft_strlen(line);
-		free(line);
-		line = ft_get_next_line(fd);
-		nb_line++;
-	}
-	close(fd);
-	return (res);
+	return (ft_strlen(file->lines[i_line]));
 }
