@@ -19,7 +19,9 @@ char	*trim_nl(char *str)
 	if (!str)
 		return (NULL);
 	res = ft_strtrim(str, "\n");
-	free (str);
+	if (!res)
+		return (NULL);
+	free(str);
 	return (res);
 }
 

@@ -23,8 +23,12 @@ static void	color_error_exit(t_parsed *parsed, char **sp_val, char *var
 void	validate_color_components(t_parsed *parsed, char **split_val, char *var)
 {
 	int		i;
+	char	*trimmed;
 
-	split_val[2] = trim_nl(split_val[2]);
+	trimmed = trim_nl(split_val[2]);
+	if (!trimmed)
+		color_error_exit(parsed, split_val, var, "Memory alloc failed\n");
+	split_val[2] = trimmed;
 	i = 0;
 	while (split_val[i])
 	{

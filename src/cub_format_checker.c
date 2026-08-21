@@ -6,34 +6,49 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 18:15:30 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/21 19:33:53 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/21 19:39:01 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cube3d.h"
 
+static int	prepare_line(t_parsed *par, char *line)
+{
+	char	*trimmed;
+
+	par->sp_l = ft_split(line, ' ');
+	if (!par->sp_l)
+		return (0);
+	if (par->sp_l[0] && par->sp_l[1])
+	{
+		trimmed = trim_nl(par->sp_l[1]);
+		if (!trimmed)
+			return (free_parsed(par), 0);
+		par->sp_l[1] = trimmed;
+	}
+	return (1);
+}
+
 int	check_map_format(t_file *file, int *map_line)
 {
-	size_t				i;
-	t_parsed			par;
-	int					nb_keys;
+	t_parsed	par;
+	size_t		i;
+	int			nb_keys;
 
 	par.file = file;
-	par.used_key = (char **)ft_calloc(sizeof(char *), 7);
+	par.used_key = ft_calloc(7, sizeof(char *));
 	if (!par.used_key)
 		return (0);
-	nb_keys = 0;
 	i = 0;
+	nb_keys = 0;
 	while (i < file->len)
 	{
-		par.sp_l = ft_split(file->lines[i], ' ');
-		if (!par.sp_l)
+		if (!prepare_line(&par, file->lines[i]))
 			return (free(par.used_key), 0);
-		if (par.sp_l[0] && par.sp_l[1])
-			par.sp_l[1] = trim_nl(par.sp_l[1]);
 		check_key(&par, &nb_keys, par.used_key);
-		if (check_if_map(&par, nb_keys) == 1)
-			return (free_parsed(&par), free(par.used_key), *map_line = i, 1);
+		if (check_if_map(&par, nb_keys))
+			return (free_parsed(&par), free(par.used_key),
+				*map_line = i, 1);
 		check_color(&par);
 		free_parsed(&par);
 		i++;
@@ -41,11 +56,11 @@ int	check_map_format(t_file *file, int *map_line)
 	return (check_no_map(nb_keys, i, file, par.used_key), 1);
 }
 
-void	check_key(t_parsed	*par, int *nb_key, char **u_keys)
+void	check_key(t_parsed *par, int *nb_key, char **u_keys)
 {
-	static char			*id[] = {"NO", "SO", "WE", "EA", "F", "C", NULL};
-	int					i;
-	int					e;
+	static char	*id[] = {"NO", "SO", "WE", "EA", "F", "C", NULL};
+	int			i;
+	int			e;
 
 	i = 0;
 	e = -1;
