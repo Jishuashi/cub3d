@@ -1,5 +1,5 @@
 NO ./textures/no_holder.xpm
-F 220   ,   100,            0
+F 220   ,        100,            0
 WE ./textures/we_holder.xpm
 SO ./textures/so_holder.xpm
 EA ./textures/ea_holder.xpm

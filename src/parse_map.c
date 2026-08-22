@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 14:08:53 by louka             #+#    #+#             */
-/*   Updated: 2026/08/22 01:25:52 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 15:33:13 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_map	*parse_map(t_file *file, int i_line)
 	res = (t_map *)malloc(sizeof(t_map));
 	if (!res)
 		return (NULL);
+	res->grid = NULL;
 	res->heigh = get_heigh_map(file, i_line);
 	res->grid = get_map(file, i_line, res->heigh);
 	if (!res->grid)

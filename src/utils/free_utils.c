@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:26:57 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 02:38:13 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 15:40:42 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ void	free_map(t_map *map)
  * @param map Pointer to the string array to free.
  * @param i Number of elements to free.
  */
+/**
+ * Frees a partially built map grid and its initialized rows.
+ *
+ * @param map Grid to release.
+ * @param i Number of initialized rows in the grid.
+ */
 void	free_grid_map(char **map, int i)
 {
 	int	j;
@@ -53,6 +59,11 @@ void	free_grid_map(char **map, int i)
  * Frees the tokenized parsed line and its associated split array.
  *
  * @param parsed Pointer to the parsing state to clean.
+ */
+/**
+ * Frees the temporary split data stored in a parsing context.
+ *
+ * @param parsed Parsing context to clean.
  */
 void	free_parsed(t_parsed *parsed)
 {
@@ -77,6 +88,11 @@ void	free_parsed(t_parsed *parsed)
  * Frees a NULL-terminated array of strings.
  *
  * @param tab Pointer to the string array.
+ */
+/**
+ * Frees a NULL-terminated array of allocated strings.
+ *
+ * @param tab Array of strings to release.
  */
 void	free_double(char **tab)
 {

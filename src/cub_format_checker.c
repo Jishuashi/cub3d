@@ -6,12 +6,19 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 18:15:30 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 01:26:12 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 15:40:23 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cube3d.h"
 
+/**
+ * Splits one file line and removes its trailing newline from the value.
+ *
+ * @param par Parsing context to receive the split line.
+ * @param line Source line from the map file.
+ * @return 1 on success, 0 if an allocation fails.
+ */
 static int	prepare_line(t_parsed *par, char *line)
 {
 	char	*trimmed;
@@ -65,7 +72,13 @@ int	check_map_format(t_file *file, int *map_line)
 	}
 	return (check_no_map(nb_keys, i, file, par.used_key), 1);
 }
-
+/**
+ * Checks a parsed header token against the required map identifiers.
+ *
+ * @param par Current parsing context.
+ * @param nb_key Number of keys already registered.
+ * @param u_keys Array containing the registered keys.
+ */
 void	check_key(t_parsed *par, int *nb_key, char **u_keys)
 {
 	static char	*id[] = {"NO", "SO", "WE", "EA", "F", "C", NULL};

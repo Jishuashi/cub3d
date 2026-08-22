@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 00:55:16 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 01:26:12 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 15:40:42 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ int	check_int_str(char *str)
 	return (1);
 }
 
+/**
+ * Frees the remaining tokens in a source array.
+ *
+ * @param src NULL-terminated source array.
+ * @param i Index of the first token to release.
+ */
 static void	free_src(char **src, size_t i)
 {
 	while (src[i])

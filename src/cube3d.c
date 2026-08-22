@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 02:37:05 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 15:25:19 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,16 @@ void	init(t_game *data, t_file *file, int map_line)
 	if (!data->assets)
 		return (free_file(file), free_map(data->map)
 			, ft_print_err("", "Memory allocation failed\n", NULL), exit(1));
+	if (!check_colors_value(data->assets))
+		return (free_file(file), free_map(data->map)
+			, free_textures(data->assets)
+			, ft_print_err("", "Colors value must be between 0 and 255", NULL));
 }
 
 void	start(t_game *data)
 {
-	size_t	i;
-	size_t	j;
+	size_t		i;
+	size_t		j;
 
 	i = 0;
 	printf("Map:\n");
@@ -67,8 +71,11 @@ void	start(t_game *data)
 		i++;
 	}
 	printf("\n");
-	printf("NO Textures: %s\n", data->assets->no);
-	printf("SO Textures: %s\n", data->assets->so);
-	printf("EA Textures: %s\n", data->assets->ea);
-	printf("WE Textures: %s\n", data->assets->we);
+	printf("NO : %s\nSO : %s\n", data->assets->no, data->assets->so);
+	printf("EA : %s\nWE : %s\n", data->assets->ea, data->assets->we);
+	printf("\n");
+	printf("F Colors | R : %d G: %d B:%d\n", data->assets->floor->red,
+		data->assets->floor->green, data->assets->floor->blue);
+	printf("C Colors | R : %d G: %d B:%d\n", data->assets->ceiling->red,
+		data->assets->ceiling->green, data->assets->ceiling->blue);
 }

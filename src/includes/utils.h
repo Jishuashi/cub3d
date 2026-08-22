@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:08:48 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/20 13:48:34 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 15:25:44 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <errno.h>
 
 typedef struct s_map	t_map;
+typedef struct s_assets	t_assets;
+
 typedef struct s_file
 {
 	size_t	len;
@@ -50,5 +52,6 @@ void	free_file(t_file *file);
 char	*reduce_space_val(char **src);
 void	err_map_pos(t_parsed *par);
 char	*gnl_cub(int fd);
+int		check_colors_value(t_assets *assets);
 
 #endif

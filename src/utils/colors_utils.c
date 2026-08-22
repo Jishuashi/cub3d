@@ -6,11 +6,11 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 03:57:53 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 01:26:12 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 15:40:42 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/utils.h"
+#include "../includes/cube3d.h"
 
 /**
  * Frees color parsing resources and exits with a formatted error.
@@ -51,7 +51,8 @@ void	validate_color_components(t_parsed *parsed, char **split_val, char *var)
 	while (split_val[i])
 	{
 		if (!check_int_str(split_val[i]))
-			color_error_exit(parsed, split_val, var, " contain non int char\n");
+			color_error_exit(parsed, split_val, var,
+				" contains a non-numeric or negative value\n");
 		i++;
 	}
 	free_double(split_val);
@@ -91,4 +92,21 @@ void	check_color(t_parsed *parsed)
 				" invalid color format\n");
 		validate_color_components(parsed, split_val, parsed->sp_l[0]);
 	}
+}
+
+/**
+ * Checks that every parsed RGB component is within the allowed range.
+ *
+ * @param assets Assets containing the floor and ceiling colors.
+ * @return 1 when all components are at most 255, otherwise 0.
+ */
+int	check_colors_value(t_assets *assets)
+{
+	if (assets->floor->red > 255 || assets->floor->green > 255
+		|| assets->floor->blue > 255)
+		return (0);
+	if (assets->ceiling->red > 255 || assets->ceiling->green > 255
+		|| assets->ceiling->blue > 255)
+		return (0);
+	return (1);
 }
