@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:26:57 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 01:26:12 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 02:38:13 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	free_map(t_map *map)
 {
 	size_t	i;
 
+	if (!map)
+		return ;
 	i = 0;
-	while (i < map->heigh)
+	while (map->grid && i < map->heigh)
 	{
 		free(map->grid[i]);
 		i++;

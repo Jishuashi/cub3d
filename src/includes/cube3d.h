@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:18 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 01:24:22 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 02:28:48 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "../libft/libft.h"
 # include "./parse_map.h"
 # include "./cub_format_checker.h"
+# include "./parse_textures.h"
 # include <fcntl.h>
 
 typedef struct s_assets
@@ -34,6 +35,7 @@ typedef struct s_game
 }	t_game;
 
 int		check_map(t_map *map);
-void	init(t_game *data);
+void	init(t_game *data, t_file *file, int map_line);
+void	start(t_game *data);
 
 #endif

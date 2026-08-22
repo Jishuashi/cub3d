@@ -21,6 +21,7 @@ SRCS        =							\
 			src/utils/err_utils.c		\
 			src/utils/read_utils.c		\
 			src/gnl_cub.c 				\
+			src/parse_textures.c		\
 
 
 OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))

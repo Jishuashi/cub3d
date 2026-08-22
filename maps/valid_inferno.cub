@@ -1,8 +1,8 @@
-                  NO                  ./textures/place_holder.xpm
+NO ./textures/no_holder.xpm
 F 220   ,   100,            0
-                    WE         ./textures/place_holder.xpm
-                                                SO                            ./textures/place_holder.xpm
-EA                                       ./textures/place_holder.xpm
+WE ./textures/we_holder.xpm
+SO ./textures/so_holder.xpm
+EA ./textures/ea_holder.xpm
 
 
 
