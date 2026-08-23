@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:08:48 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 15:25:44 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/23 17:04:38 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ typedef struct s_parsed
 	char	**used_key;
 }	t_parsed;
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
 int		check_file(char *path);
 void	free_map(t_map *map);
 void	free_grid_map(char **map, int i);
@@ -53,5 +59,8 @@ char	*reduce_space_val(char **src);
 void	err_map_pos(t_parsed *par);
 char	*gnl_cub(int fd);
 int		check_colors_value(t_assets *assets);
+char	**copy_map(char **map, size_t row);
+t_point	*get_point(int x, int y);
+t_point	*set_point(t_point *point, int x, int y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:18 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 03:04:44 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/23 17:23:44 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ typedef struct s_game
 int		check_map(t_map *map);
 void	init(t_game *data, t_file *file, int map_line);
 void	start(t_game *data);
+int		flood_fill(char **map, t_point *pos);
 
 #endif

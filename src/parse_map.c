@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 14:08:53 by louka             #+#    #+#             */
-/*   Updated: 2026/08/22 15:33:13 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 16:37:57 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,9 @@ char	**get_map(t_file *file, int i_line, size_t heigh)
 		if (!line)
 			return (free_grid_map(res, i - i_line), NULL);
 		e = 0;
-		while (line[e++])
-		{
-			if (line[e] == '\n')
-				line[e] = '\0';
-		}
+		while (line[e] && line[e] != '\n')
+			e++;
+		line[e] = '\0';
 		res[i - i_line] = line;
 		i++;
 	}
@@ -109,5 +107,10 @@ size_t	get_heigh_map(t_file *file, int i_line)
  */
 size_t	get_width_map(t_file *file, int i_line)
 {
-	return (ft_strlen(file->lines[i_line]));
+	size_t	width;
+
+	width = ft_strlen(file->lines[i_line]);
+	if (width > 0 && file->lines[i_line][width - 1] == '\n')
+		width--;
+	return (width);
 }

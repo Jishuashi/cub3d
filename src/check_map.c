@@ -6,11 +6,13 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 17:10:51 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 01:25:52 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/23 17:29:47 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/cube3d.h"
+
+static int	is_valid(char **copy, char curr, t_point *pos);
 
 /**
  * Validates the content of a parsed map grid.
@@ -24,29 +26,40 @@
  */
 int	check_map(t_map *map)
 {
-	static const int	char_val[] = {'1', '0', ' ', 'N', '\n', 0};
-	size_t				e;
-	size_t				i;
-	size_t				j;
+	size_t	i;
+	size_t	j;
+	char	**grid;
+	char	**copy;
+	int		valid;
 
 	i = 0;
-	while (i < map->heigh)
+	grid = map->grid;
+	copy = copy_map(map->grid, map->heigh);
+	if (!copy)
+		return (-1);
+	while (grid[i])
 	{
 		j = 0;
-		while (map->grid[i][j])
+		while (grid[i][j])
 		{
-			e = 0;
-			while (char_val[e])
-			{
-				if (char_val[e] != map->grid[i][j])
-					return (0);
-				e++;
-			}
+			valid = is_valid(copy, grid[i][j], get_point(i, j));
+			if (valid <= 0)
+				return (free_double(copy), valid);
 			j++;
 		}
-		if (j != map->width)
-			return (0);
 		i++;
 	}
-	return (1);
+	return (free_double(copy), 1);
+}
+
+static int	is_valid(char **copy, char curr, t_point *pos)
+{
+	int	res;
+
+	res = 1;
+	if (!ft_strchr("NSWE10 ", curr))
+		return (free(pos), 0);
+	if (curr == 'N' || curr == 'W' || curr == 'E' || curr == 'S' || curr == '0')
+		return (flood_fill(copy, pos));
+	return (free(pos), res);
 }

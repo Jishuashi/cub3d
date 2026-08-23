@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 18:15:30 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 15:40:23 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/23 17:19:44 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	check_map_format(t_file *file, int *map_line)
 	}
 	return (check_no_map(nb_keys, i, file, par.used_key), 1);
 }
+
 /**
  * Checks a parsed header token against the required map identifiers.
  *

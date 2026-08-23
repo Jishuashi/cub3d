@@ -20,9 +20,12 @@ SRCS        =							\
 			src/cub_format_checker.c	\
 			src/utils/err_utils.c		\
 			src/utils/read_utils.c		\
+			src/utils/map_copy.c		\
+			src/utils/point.c			\
 			src/gnl_cub.c 				\
 			src/parse_textures.c		\
 			src/parse_colors.c			\
+			src/flood_fill.c			\
 
 
 OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))

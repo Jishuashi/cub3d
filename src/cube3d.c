@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 15:25:19 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/23 17:20:25 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,21 @@ int	main(int ac, char *av[])
 
 void	init(t_game *data, t_file *file, int map_line)
 {
+	int	is_valid;
+
 	data->map = parse_map(file, map_line);
 	if (!data->map)
 		return (free_file(file)
 			, ft_print_err("", "Memory allocation failed\n", NULL), exit(1));
+	is_valid = check_map(data->map);
+	if (!is_valid)
+		return (free_file(file), free_map(data->map), ft_print_err(""
+				, "Map not surrounded by Wall or invalid map char\n", NULL)
+			, exit(1));
+	if (is_valid < 0)
+		return (free_file(file), free_map(data->map)
+			, ft_print_err("", "Memory allocation failed\n", NULL)
+			, exit(1));
 	data->assets = parse_textures(file, map_line);
 	if (!data->assets)
 		return (free_file(file), free_map(data->map)
@@ -62,7 +73,7 @@ void	start(t_game *data)
 	while (i < data->map->heigh)
 	{
 		j = 0;
-		while (j < data->map->width)
+		while (data->map->grid[i][j])
 		{
 			printf("%c", data->map->grid[i][j]);
 			j++;

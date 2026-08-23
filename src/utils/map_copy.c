@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_format_checker.h                               :+:      :+:    :+:   */
+/*   map_copy.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/08 15:10:37 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/23 16:49:19 by hchartie         ###   ########.fr       */
+/*   Created: 2026/08/23 16:52:15 by hchartie          #+#    #+#             */
+/*   Updated: 2026/08/23 16:58:53 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_FORMAT_CHECKER_H
-# define CUB_FORMAT_CHECKER_H
-# include "./utils.h"
+#include "../includes/cube3d.h"
 
-int		check_map_format(t_file *file, int *map_line);
-void	check_key(t_parsed	*parsed, int *nb_key, char **used_keys);
-int		check_if_map(t_parsed *parsed, int nb_keys);
-void	check_no_map(int nb_keys, int current, t_file *file, char **used);
-int		flood_fill(char **map, t_point *pos);
+char	**copy_map(char **map, size_t row)
+{
+	char	**copy;
+	size_t	i;
 
-#endif
+	copy = (char **)malloc(sizeof(char *) * (row + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (i < row)
+	{
+		copy[i] = ft_strdup(map[i]);
+		if (!copy[i])
+			return (free_double(copy), NULL);
+		i++;
+	}
+	copy[i] = NULL;
+	return (copy);
+}
