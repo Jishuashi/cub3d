@@ -6,26 +6,45 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:26:57 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/06 17:30:42 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 15:40:42 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
+/**
+ * Frees all memory allocated for a parsed map.
+ *
+ * @param map Pointer to the map structure to free.
+ */
 void	free_map(t_map *map)
 {
 	size_t	i;
 
+	if (!map)
+		return ;
 	i = 0;
-	while (i < map->heigh)
+	while (map->grid && i < map->heigh)
 	{
-		free(map->map[i]);
+		free(map->grid[i]);
 		i++;
 	}
-	free(map->map);
+	free(map->grid);
 	free(map);
 }
 
+/**
+ * Frees a grid of strings up to the given index.
+ *
+ * @param map Pointer to the string array to free.
+ * @param i Number of elements to free.
+ */
+/**
+ * Frees a partially built map grid and its initialized rows.
+ *
+ * @param map Grid to release.
+ * @param i Number of initialized rows in the grid.
+ */
 void	free_grid_map(char **map, int i)
 {
 	int	j;
@@ -36,22 +55,45 @@ void	free_grid_map(char **map, int i)
 	free(map);
 }
 
+/**
+ * Frees the tokenized parsed line and its associated split array.
+ *
+ * @param parsed Pointer to the parsing state to clean.
+ */
+/**
+ * Frees the temporary split data stored in a parsing context.
+ *
+ * @param parsed Parsing context to clean.
+ */
 void	free_parsed(t_parsed *parsed)
 {
-	size_t	i;
+	int		i;
 
-	while (parsed->line)
+	if (!parsed)
+		return ;
+	if (parsed->sp_l)
 	{
-		free(parsed->line);
-		parsed->line = ft_get_next_line(parsed->fd);
+		i = 0;
+		while (parsed->sp_l[i])
+		{
+			free(parsed->sp_l[i]);
+			i++;
+		}
+		free(parsed->sp_l);
+		parsed->sp_l = NULL;
 	}
-	i = 0;
-	while (parsed->split_line && parsed->split_line[i])
-		free(parsed->split_line[i++]);
-	free(parsed->split_line);
-	close(parsed->fd);
 }
 
+/**
+ * Frees a NULL-terminated array of strings.
+ *
+ * @param tab Pointer to the string array.
+ */
+/**
+ * Frees a NULL-terminated array of allocated strings.
+ *
+ * @param tab Array of strings to release.
+ */
 void	free_double(char **tab)
 {
 	int	i;
@@ -63,4 +105,29 @@ void	free_double(char **tab)
 		i++;
 	}
 	free(tab);
+}
+
+/**
+ * Frees the file structure and all strings it contains.
+ *
+ * @param file Pointer to the parsed file structure.
+ */
+void	free_file(t_file *file)
+{
+	size_t	i;
+
+	i = 0;
+	if (!file)
+		return ;
+	if (file->lines)
+	{
+		while (i < file->len)
+		{
+			if (file->lines[i])
+				free(file->lines[i]);
+			i++;
+		}
+		free(file->lines);
+	}
+	free(file);
 }

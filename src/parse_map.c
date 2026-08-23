@@ -6,95 +6,111 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 14:08:53 by louka             #+#    #+#             */
-/*   Updated: 2026/08/04 23:52:30 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 16:37:57 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/parse_map.h"
 
-t_map	*parse_map(char *file)
+/**
+ * Builds a map structure starting from the map section of a parsed file.
+ *
+ * The function calculates the number of lines in the map, copies the map rows,
+ * and stores the resulting width and grid into a newly allocated structure.
+ *
+ * @param file Parsed file structure containing all loaded lines.
+ * @param i_line Index of the first row of the map section.
+ * @return A newly allocated map on success, or NULL on allocation failure.
+ */
+t_map	*parse_map(t_file *file, int i_line)
 {
 	t_map	*res;
 
 	res = (t_map *)malloc(sizeof(t_map));
 	if (!res)
 		return (NULL);
-	res->heigh = get_heigh_map(ft_open(file));
-	res->map = get_map(ft_open(file), res->heigh);
-	if (!res->map)
+	res->grid = NULL;
+	res->heigh = get_heigh_map(file, i_line);
+	res->grid = get_map(file, i_line, res->heigh);
+	if (!res->grid)
 		return (free(res), NULL);
-	res->width = get_width_map(ft_open(file));
+	res->width = get_width_map(file, i_line);
 	return (res);
 }
 
-char	**get_map(int fd, size_t heigh)
+/**
+ * Copies the map section into a dedicated grid of rows.
+ *
+ * Each map line is duplicated and trimmed from a trailing newline before being
+ * stored into the returned array. The last entry is set to NULL as a terminator.
+ *
+ * @param file Parsed file structure.
+ * @param i_line Index of the first map line.
+ * @param heigh Number of rows to be copied.
+ * @return A NULL-terminated grid of strings representing the map.
+ */
+char	**get_map(t_file *file, int i_line, size_t heigh)
 {
 	char	**res;
 	char	*line;
 	size_t	i;
-	int		nb_line;
+	size_t	e;
 
 	res = (char **)malloc(sizeof(char *) * (heigh + 1));
 	if (!res)
-		return (close(fd), NULL);
-	i = 0;
-	nb_line = 0;
-	line = ft_get_next_line(fd);
-	while (line)
+		return (NULL);
+	i = (size_t)i_line;
+	while (file->lines[i])
 	{
-		if (nb_line >= 8)
-			res[i++] = line;
-		else
-			free(line);
-		line = ft_get_next_line(fd);
-		nb_line++;
+		line = ft_strdup(file->lines[i]);
+		if (!line)
+			return (free_grid_map(res, i - i_line), NULL);
+		e = 0;
+		while (line[e] && line[e] != '\n')
+			e++;
+		line[e] = '\0';
+		res[i - i_line] = line;
+		i++;
 	}
-	if (nb_line < 8)
-		return (close(fd), free_grid_map(res, i), NULL);
-	res[i] = NULL;
-	close(fd);
+	res[i - i_line] = NULL;
 	return (res);
 }
 
-size_t	get_heigh_map(int fd)
+/**
+ * Counts the number of rows remaining in the map section.
+ *
+ * @param file Parsed file structure.
+ * @param i_line Index of the first map row.
+ * @return The number of lines in the map.
+ */
+size_t	get_heigh_map(t_file *file, int i_line)
 {
 	size_t	res;
-	int		nb_line;
-	char	*line;
+	size_t	i;
 
-	line = ft_get_next_line(fd);
 	res = 0;
-	nb_line = 0;
-	while (line)
+	i = (size_t)i_line;
+	while (file->lines[i])
 	{
-		if (nb_line >= 8)
-			res++;
-		free(line);
-		line = ft_get_next_line(fd);
-		nb_line++;
+		res++;
+		i++;
 	}
-	if (fd >= 0)
-		close(fd);
 	return (res);
 }
 
-size_t	get_width_map(int fd)
+/**
+ * Returns the width of the first row of the map.
+ *
+ * @param file Parsed file structure.
+ * @param i_line Index of the first map row.
+ * @return The width of the map row as a string length.
+ */
+size_t	get_width_map(t_file *file, int i_line)
 {
-	size_t	res;
-	char	*line;
-	size_t	nb_line;
+	size_t	width;
 
-	line = ft_get_next_line(fd);
-	nb_line = 0;
-	res = 0;
-	while (line)
-	{
-		if (nb_line == 8)
-			res = ft_strlen(line);
-		free(line);
-		line = ft_get_next_line(fd);
-		nb_line++;
-	}
-	close(fd);
-	return (res);
+	width = ft_strlen(file->lines[i_line]);
+	if (width > 0 && file->lines[i_line][width - 1] == '\n')
+		width--;
+	return (width);
 }

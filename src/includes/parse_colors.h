@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.h                                        :+:      :+:    :+:   */
+/*   parse_colors.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/04 15:48:06 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/21 20:37:21 by hchartie         ###   ########.fr       */
+/*   Created: 2026/08/22 02:53:03 by hchartie          #+#    #+#             */
+/*   Updated: 2026/08/22 14:33:59 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_MAP_H
-# define PARSE_MAP_H
-# include "../libft/libft.h"
+#ifndef PARSE_COLORS_H
+# define PARSE_COLORS_H
 # include "utils.h"
-# include <fcntl.h>
 
-typedef struct s_map
+typedef struct s_colors
 {
-	size_t	width;
-	size_t	heigh;
-	char	**grid;
-}	t_map;
+	int	red;
+	int	green;
+	int	blue;
+}	t_colors;
 
-typedef struct s_file	t_file;
-
-t_map	*parse_map(t_file *file, int line);
-char	**get_map(t_file *file, int line, size_t heigh);
-size_t	get_heigh_map(t_file *file, int line);
-size_t	get_width_map(t_file *file, int line);
+t_colors	*parse_color(t_file *file, int i_line, char *key);
+t_colors	*get_colors(t_colors *colors, t_file *file, int i_line, char *key);
+t_colors	*set_colors(t_colors *colors, char *val);
 
 #endif

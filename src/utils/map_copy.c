@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   map_copy.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 22:12:37 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/09 23:49:01 by hchartie         ###   ########.fr       */
+/*   Created: 2026/08/23 16:52:15 by hchartie          #+#    #+#             */
+/*   Updated: 2026/08/23 16:58:53 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/cube3d.h"
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+char	**copy_map(char **map, size_t row)
 {
-	size_t			i;
-	unsigned char	c1;
-	unsigned char	c2;
+	char	**copy;
+	size_t	i;
 
+	copy = (char **)malloc(sizeof(char *) * (row + 1));
+	if (!copy)
+		return (NULL);
 	i = 0;
-	while (i < n)
+	while (i < row)
 	{
-		if (s1 != 0)
-			c1 = (unsigned char)s1[i];
-		else
-			c1 = 0;
-		if (s2 != 0)
-			c2 = (unsigned char)s2[i];
-		else
-			c2 = 0;
-		if (c1 != c2)
-			return (c1 - c2);
-		if (c1 == '\0')
-			return (0);
+		copy[i] = ft_strdup(map[i]);
+		if (!copy[i])
+			return (free_double(copy), NULL);
 		i++;
 	}
-	return (0);
+	copy[i] = NULL;
+	return (copy);
 }

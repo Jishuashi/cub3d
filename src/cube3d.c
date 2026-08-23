@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/06 17:11:09 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/23 17:20:25 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,79 @@
 
 int	main(int ac, char *av[])
 {
-	size_t	i;
-	t_map	*map;
+	t_game	data;
+	t_file	*file;
+	int		map_line;
 
 	if (ac != 2)
 		return (ft_putstr_fd("Error\nArg must be only a map in format .cub\n",
 				2), 1);
+	map_line = 0;
 	check_path(av[1]);
-	check_map_file(ft_open(av[1]));
-	map = parse_map(av[1]);
-	if (!map)
-		return (1);
+	if (!check_file(av[1]))
+		return (ft_print_err(av[1], " map path invalid\n", NULL), 1);
+	file = read_file(av[1]);
+	if (!file)
+		return (ft_print_err("", "Memory allocation failed\n", NULL), 1);
+	if (!check_map_format(file, &map_line))
+		return (free_file(file)
+			, ft_print_err("", "Memory allocation failed\n", NULL), 1);
+	init(&data, file, map_line);
+	start(&data);
+	return (free_file(file), free_textures(data.assets), free_map(data.map), 0);
+}
+
+void	init(t_game *data, t_file *file, int map_line)
+{
+	int	is_valid;
+
+	data->map = parse_map(file, map_line);
+	if (!data->map)
+		return (free_file(file)
+			, ft_print_err("", "Memory allocation failed\n", NULL), exit(1));
+	is_valid = check_map(data->map);
+	if (!is_valid)
+		return (free_file(file), free_map(data->map), ft_print_err(""
+				, "Map not surrounded by Wall or invalid map char\n", NULL)
+			, exit(1));
+	if (is_valid < 0)
+		return (free_file(file), free_map(data->map)
+			, ft_print_err("", "Memory allocation failed\n", NULL)
+			, exit(1));
+	data->assets = parse_textures(file, map_line);
+	if (!data->assets)
+		return (free_file(file), free_map(data->map)
+			, ft_print_err("", "Memory allocation failed\n", NULL), exit(1));
+	if (!check_colors_value(data->assets))
+		return (free_file(file), free_map(data->map)
+			, free_textures(data->assets)
+			, ft_print_err("", "Colors value must be between 0 and 255", NULL));
+}
+
+void	start(t_game *data)
+{
+	size_t		i;
+	size_t		j;
+
 	i = 0;
-	ft_printf("Map : \n");
-	while (i < map->heigh)
+	printf("Map:\n");
+	while (i < data->map->heigh)
 	{
-		ft_printf("%s", map->map[i]);
+		j = 0;
+		while (data->map->grid[i][j])
+		{
+			printf("%c", data->map->grid[i][j]);
+			j++;
+		}
+		printf("\n");
 		i++;
 	}
-	ft_printf("\n");
-	free_map(map);
-	return (0);
+	printf("\n");
+	printf("NO : %s\nSO : %s\n", data->assets->no, data->assets->so);
+	printf("EA : %s\nWE : %s\n", data->assets->ea, data->assets->we);
+	printf("\n");
+	printf("F Colors | R : %d G: %d B:%d\n", data->assets->floor->red,
+		data->assets->floor->green, data->assets->floor->blue);
+	printf("C Colors | R : %d G: %d B:%d\n", data->assets->ceiling->red,
+		data->assets->ceiling->green, data->assets->ceiling->blue);
 }

@@ -1,0 +1,7 @@
+NO ./textures/no_holder.xpm
+SO ./textures/so_holder.xpm
+WE ./textures/we_holder.xpm
+EA ./textures/ea_holder.xpm
+
+F 220,100,0
+C 225,30,0

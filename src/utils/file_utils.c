@@ -6,23 +6,38 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:18:41 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/06 17:30:23 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/08/22 01:26:12 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
+/**
+ * Checks whether a file can be opened for reading.
+ *
+ * @param path Path to the file to inspect.
+ * @return 1 if the file exists and is accessible, 0 otherwise.
+ */
 int	check_file(char *path)
 {
 	int	fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (close(fd), 0);
+		return (0);
 	close(fd);
 	return (1);
 }
 
+/**
+ * Opens a file for reading and exits on failure.
+ *
+ * This helper is used for required map assets. If the file cannot be opened,
+ * it prints an error message and terminates the program.
+ *
+ * @param path Path to the file to open.
+ * @return The file descriptor associated with the opened file.
+ */
 int	ft_open(char *path)
 {
 	int	fd;
@@ -39,6 +54,14 @@ int	ft_open(char *path)
 	return (fd);
 }
 
+/**
+ * Validates the file extension and the presence of a name for a .cub map.
+ *
+ * The function ensures the path ends with the expected extension and rejects
+ * empty or invalid map names.
+ *
+ * @param path Path to validate.
+ */
 void	check_path(char *path)
 {
 	size_t	len;
@@ -56,59 +79,31 @@ void	check_path(char *path)
 	}
 }
 
-void	check_map_file(int fd)
+/**
+ * Counts the number of lines stored in a file descriptor.
+ *
+ * The function reads every remaining line using the custom GNL and returns the
+ * number of lines found before EOF. If an error occurs, it returns 0.
+ *
+ * @param fd File descriptor to inspect.
+ * @return Number of lines found in the file.
+ */
+size_t	get_len_file(int fd)
 {
-	t_parsed			parsed;
-	static const char	*id[] = {"NO", "SO", "WE", "EA", "\n", "F", "C", NULL};
-	size_t				nb_line;
-	size_t				i;
+	char	*line;
+	size_t	res;
 
-	parsed.line = ft_get_next_line(fd);
-	parsed.fd = fd;
-	nb_line = 0;
-	while (parsed.line)
+	if (fd < 0)
+		return (0);
+	line = gnl_cub(fd);
+	res = 0;
+	while (line)
 	{
-		parsed.split_line = ft_split(parsed.line, ' ');
-		if (!parsed.split_line)
-			return (free_parsed(&parsed), ft_print_err(""
-					, "Memory alloc failed"));
-		if (nb_line < 8)
-			check_map_line(&parsed, id[nb_line]);
-		free(parsed.line);
-		i = 0;
-		while (parsed.split_line && parsed.split_line[i])
-			free(parsed.split_line[i++]);
-		free(parsed.split_line);
-		parsed.line = ft_get_next_line(fd);
-		nb_line++;
+		res++;
+		free(line);
+		line = gnl_cub(fd);
 	}
-	close(fd);
-}
-
-void	check_map_line(t_parsed *parsed, const char *id)
-{
-	int			l_fd;
-	char		*texture_path;
-	char		**split_line;
-
-	split_line = parsed->split_line;
-	if (!id || ft_strncmp((char *)id, "\n", 1) == 0)
-		return ;
-	if (ft_strncmp(split_line[0], (char *)id, ft_strlen(id)) != 0)
-		return (ft_print_err(split_line[0], " the key valid/correct order")
-			, free_parsed(parsed), exit(1));
-	if (ft_strlen(split_line[0]) == 2)
-	{
-		texture_path = ft_strtrim(split_line[1], "\n");
-		if (!texture_path)
-			return (free_parsed(parsed), exit(1));
-		l_fd = open(texture_path, O_RDONLY);
-		if (l_fd < 0)
-			return (free_parsed(parsed),
-				ft_print_err(texture_path, " texture not found"),
-				free(texture_path), exit(1));
-		free(texture_path);
-		close(l_fd);
-	}
-	check_color(parsed);
+	if (errno != 0)
+		return (close(fd), free(line), 0);
+	return (close(fd), free(line), res);
 }
