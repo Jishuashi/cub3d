@@ -3,13 +3,16 @@ NAME        = cub3d
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -g
 MLX_DIR     = mlx
-CPPFLAGS    = -I$(LIBFT_DIR) -I$(MLX_DIR)
+CPPFLAGS    = -Isrc/includes -I$(LIBFT_DIR) -I$(MLX_DIR)
 MLX         = $(MLX_DIR)/libmlx.a
 LDFLAGS     = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 OBJ_DIR     = obj
 LIBFT_DIR   = src/libft
-LIBFT       = $(LIBFT_DIR)/libft.a
+LIBFT_SRCS  = $(LIBFT_DIR)/ft_get_next_line.c \
+			$(LIBFT_DIR)/ft_split.c \
+			$(LIBFT_DIR)/ft_strncmp.c
+LIBFT_OBJS  = $(LIBFT_SRCS:.c=.o)
 
 SRCS        =							\
 			src/cube3d.c				\
@@ -27,7 +30,7 @@ SRCS        =							\
 			src/utils/point.c			\
 			src/gnl_cub.c 				\
 			src/parse_textures.c		\
-			src/load_textures.c		\
+			src/load_textures.c	     	\
 			src/parse_colors.c			\
 			src/flood_fill.c			\
 
@@ -51,8 +54,11 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 	@printf "$(YELLOW)✔ $(NAME) built successfully$(RESET)\n"
 
-$(LIBFT):
-	@$(MAKE) -C $(LIBFT_DIR) all
+$(LIBFT): $(LIBFT_OBJS)
+	@ar rcs $@ $^
+
+$(LIBFT_DIR)/%.o: $(LIBFT_DIR)/%.c
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 $(MLX):
 	@$(MAKE) -C $(MLX_DIR) all
@@ -65,12 +71,12 @@ $(OBJ_DIR)/%.o: %.c
 clean:
 	@$(RM) -r $(OBJ_DIR)
 	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
-	@$(MAKE) -C $(LIBFT_DIR) clean
+	@$(RM) $(LIBFT_OBJS)
 
 fclean:
 	@$(RM) $(NAME)
 	@printf "$(RED)✦ Executable removed$(RESET)\n"
-	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(RM) $(LIBFT) $(LIBFT_OBJS)
 	@$(RM) -r $(OBJ_DIR)
 	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
 
