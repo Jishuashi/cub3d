@@ -5,7 +5,17 @@ CFLAGS      = -Wall -Wextra -Werror -g
 MLX_DIR     = mlx
 CPPFLAGS    = -Isrc/includes -I$(LIBFT_DIR) -I$(MLX_DIR)
 MLX         = $(MLX_DIR)/libmlx.a
+UNAME_S     := $(shell uname -s)
+
+ifeq ($(UNAME_S),Darwin)
+PLATFORM    = macOS
+LDFLAGS     = -L$(MLX_DIR) -L/opt/X11/lib -lmlx -lXext -lX11 -lm
+else ifeq ($(UNAME_S),Linux)
+PLATFORM    = Linux
 LDFLAGS     = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+else
+$(error Unsupported operating system: $(UNAME_S))
+endif
 
 OBJ_DIR     = obj
 LIBFT_DIR   = src/libft
@@ -49,6 +59,7 @@ RED         = \033[1;31m
 RESET       = \033[0m
 
 all: $(NAME)
+	@printf "$(CYAN)Platform:$(RESET) $(PLATFORM)\n"
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
