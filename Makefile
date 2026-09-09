@@ -2,7 +2,10 @@ NAME        = cub3d
 
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -g
-CPPFLAGS    = -I$(LIBFT_DIR)
+MLX_DIR     = mlx
+CPPFLAGS    = -I$(LIBFT_DIR) -I$(MLX_DIR)
+MLX         = $(MLX_DIR)/libmlx.a
+LDFLAGS     = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 OBJ_DIR     = obj
 LIBFT_DIR   = src/libft
@@ -24,6 +27,7 @@ SRCS        =							\
 			src/utils/point.c			\
 			src/gnl_cub.c 				\
 			src/parse_textures.c		\
+			src/load_textures.c		\
 			src/parse_colors.c			\
 			src/flood_fill.c			\
 
@@ -43,12 +47,15 @@ RESET       = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 	@printf "$(YELLOW)✔ $(NAME) built successfully$(RESET)\n"
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
+
+$(MLX):
+	@$(MAKE) -C $(MLX_DIR) all
 
 $(OBJ_DIR)/%.o: %.c
 	@$(MKDIR) $(dir $@)
