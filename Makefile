@@ -9,10 +9,10 @@ LDFLAGS     = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 OBJ_DIR     = obj
 LIBFT_DIR   = src/libft
-LIBFT_SRCS  = $(LIBFT_DIR)/ft_get_next_line.c \
-			$(LIBFT_DIR)/ft_split.c \
-			$(LIBFT_DIR)/ft_strncmp.c
-LIBFT_OBJS  = $(LIBFT_SRCS:.c=.o)
+LIBFT_OBJ_DIR = $(OBJ_DIR)/libft
+LIBFT       = $(LIBFT_DIR)/libft.a
+LIBFT_SRCS  = $(wildcard $(LIBFT_DIR)/*.c)
+LIBFT_OBJS  = $(patsubst $(LIBFT_DIR)/%.c,$(LIBFT_OBJ_DIR)/%.o,$(LIBFT_SRCS))
 
 SRCS        =							\
 			src/cube3d.c				\
@@ -57,11 +57,14 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS)
 $(LIBFT): $(LIBFT_OBJS)
 	@ar rcs $@ $^
 
-$(LIBFT_DIR)/%.o: $(LIBFT_DIR)/%.c
+
+$(LIBFT_OBJ_DIR)/%.o: $(LIBFT_DIR)/%.c
+	@$(MKDIR) $(dir $@)
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	@printf "$(CYAN)• Compiled:$(RESET) %s\n" "$<"
 
 $(MLX):
-	@$(MAKE) -C $(MLX_DIR) all
+	@$(MAKE) -C $(MLX_DIR) -f Makefile.gen all
 
 $(OBJ_DIR)/%.o: %.c
 	@$(MKDIR) $(dir $@)
@@ -71,7 +74,8 @@ $(OBJ_DIR)/%.o: %.c
 clean:
 	@$(RM) -r $(OBJ_DIR)
 	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
-	@$(RM) $(LIBFT_OBJS)
+	@$(RM) $(LIBFT) $(LIBFT_OBJS)
+	@$(MAKE) -C $(MLX_DIR) -f Makefile.gen clean
 
 fclean:
 	@$(RM) $(NAME)
@@ -79,6 +83,7 @@ fclean:
 	@$(RM) $(LIBFT) $(LIBFT_OBJS)
 	@$(RM) -r $(OBJ_DIR)
 	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
+	@$(MAKE) -C $(MLX_DIR) -f Makefile.gen clean
 
 norm:
 	@ERR_COUNT=$$(norminette src/ | grep "Error" | wc -l); \
