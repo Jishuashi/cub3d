@@ -9,9 +9,11 @@ UNAME_S     := $(shell uname -s)
 
 ifeq ($(UNAME_S),Darwin)
 PLATFORM    = macOS
+MLX_INC     = /opt/X11/include
 LDFLAGS     = -L$(MLX_DIR) -L/opt/X11/lib -lmlx -lXext -lX11 -lm
 else ifeq ($(UNAME_S),Linux)
 PLATFORM    = Linux
+MLX_INC     = /usr/include
 LDFLAGS     = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 else
 $(error Unsupported operating system: $(UNAME_S))
@@ -75,7 +77,7 @@ $(LIBFT_OBJ_DIR)/%.o: $(LIBFT_DIR)/%.c
 	@printf "$(CYAN)• Compiled:$(RESET) %s\n" "$<"
 
 $(MLX):
-	@$(MAKE) -C $(MLX_DIR) -f Makefile.gen all
+	@$(MAKE) -C $(MLX_DIR) -f Makefile.mk INC=$(MLX_INC) all
 
 $(OBJ_DIR)/%.o: %.c
 	@$(MKDIR) $(dir $@)
@@ -86,7 +88,7 @@ clean:
 	@$(RM) -r $(OBJ_DIR)
 	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
 	@$(RM) $(LIBFT) $(LIBFT_OBJS)
-	@$(MAKE) -C $(MLX_DIR) -f Makefile.gen clean
+	@$(MAKE) -C $(MLX_DIR) -f Makefile.mk clean
 
 fclean:
 	@$(RM) $(NAME)
@@ -94,7 +96,7 @@ fclean:
 	@$(RM) $(LIBFT) $(LIBFT_OBJS)
 	@$(RM) -r $(OBJ_DIR)
 	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
-	@$(MAKE) -C $(MLX_DIR) -f Makefile.gen clean
+	@$(MAKE) -C $(MLX_DIR) -f Makefile.mk clean
 
 norm:
 	@ERR_COUNT=$$(norminette src/ | grep "Error" | wc -l); \
