@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 22:12:37 by hchartie          #+#    #+#             */
-/*   Updated: 2025/11/16 17:56:51 by hchartie         ###   ########.fr       */
+/*   Created: 2025/11/11 16:17:18 by hchartie          #+#    #+#             */
+/*   Updated: 2025/11/14 15:18:31 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size )
 {
 	size_t	i;
-	int		c1;
-	int		c2;
 
 	i = 0;
-	while (i < n && s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+	if (size == 0)
+		return (ft_strlen(src));
+	while (src[i] != '\0' && i < (size - 1))
 	{
+		dest[i] = src[i];
 		i++;
 	}
-	c1 = s1[i] % 256;
-	c2 = s2[i] % 256;
-	if (c1 < 0)
-		c1 += 256;
-	if (c2 < 0)
-		c2 += 256;
-	if (i == n)
-		return (0);
-	return (c1 - c2);
+	dest[i] = '\0';
+	return (ft_strlen(src));
 }

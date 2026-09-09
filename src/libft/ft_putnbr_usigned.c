@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_usigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 22:12:37 by hchartie          #+#    #+#             */
-/*   Updated: 2025/11/16 17:56:51 by hchartie         ###   ########.fr       */
+/*   Created: 2025/12/01 14:48:31 by hchartie          #+#    #+#             */
+/*   Updated: 2026/01/08 13:13:30 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+size_t	ft_putnbr_usigned(unsigned int nb)
 {
-	size_t	i;
-	int		c1;
-	int		c2;
+	char		c;
+	size_t		res;
 
-	i = 0;
-	while (i < n && s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+	res = 0;
+	if (nb > 9)
+		res += ft_putnbr((nb / 10));
+	else
 	{
-		i++;
+		c = (nb + 48);
+		write(1, &c, 1);
+		res = 1;
+		return (res);
 	}
-	c1 = s1[i] % 256;
-	c2 = s2[i] % 256;
-	if (c1 < 0)
-		c1 += 256;
-	if (c2 < 0)
-		c2 += 256;
-	if (i == n)
-		return (0);
-	return (c1 - c2);
+	c = (nb % 10 + 48);
+	res++;
+	write(1, &c, 1);
+	return (res);
 }

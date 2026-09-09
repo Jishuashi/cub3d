@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 22:12:37 by hchartie          #+#    #+#             */
-/*   Updated: 2025/11/16 17:56:51 by hchartie         ###   ########.fr       */
+/*   Created: 2025/11/11 21:11:04 by hchartie          #+#    #+#             */
+/*   Updated: 2025/11/16 16:32:52 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+char	*ft_strrchr(const char *str, int c)
 {
 	size_t	i;
-	int		c1;
-	int		c2;
 
-	i = 0;
-	while (i < n && s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+	i = ft_strlen(str);
+	if (c == 0)
+		return ((char *)(str + i));
+	while (1)
 	{
-		i++;
+		if (str[i] == (char)c)
+			return ((char *)(str + i));
+		if (i == 0)
+			break ;
+		i--;
 	}
-	c1 = s1[i] % 256;
-	c2 = s2[i] % 256;
-	if (c1 < 0)
-		c1 += 256;
-	if (c2 < 0)
-		c2 += 256;
-	if (i == n)
-		return (0);
-	return (c1 - c2);
+	return (NULL);
 }

@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 22:12:37 by hchartie          #+#    #+#             */
-/*   Updated: 2025/11/16 17:56:51 by hchartie         ###   ########.fr       */
+/*   Created: 2025/11/12 14:58:54 by hchartie          #+#    #+#             */
+/*   Updated: 2025/11/17 14:12:41 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 {
 	size_t	i;
-	int		c1;
-	int		c2;
+	size_t	j;
+	size_t	find_len;
 
+	if (to_find[0] == '\0')
+		return ((char *)str);
+	find_len = ft_strlen(to_find);
 	i = 0;
-	while (i < n && s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+	while (i < len && str[i] != '\0')
 	{
+		if (i + find_len > len)
+			return (NULL);
+		j = 0;
+		while (j < find_len && str[i + j] == to_find[j])
+			j++;
+		if (j == find_len)
+			return ((char *)(str + i));
 		i++;
 	}
-	c1 = s1[i] % 256;
-	c2 = s2[i] % 256;
-	if (c1 < 0)
-		c1 += 256;
-	if (c2 < 0)
-		c2 += 256;
-	if (i == n)
-		return (0);
-	return (c1 - c2);
+	return (NULL);
 }

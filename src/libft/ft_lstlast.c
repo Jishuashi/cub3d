@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 22:12:37 by hchartie          #+#    #+#             */
-/*   Updated: 2025/11/16 17:56:51 by hchartie         ###   ########.fr       */
+/*   Created: 2025/11/20 15:16:21 by hchartie          #+#    #+#             */
+/*   Updated: 2026/03/12 14:02:44 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+/**
+ * @brief Returns the last node of the list.
+ * 
+ * @param lst The node to free.
+ * @return Last node of the list.
+ */
+t_list	*ft_lstlast(t_list *lst)
 {
-	size_t	i;
-	int		c1;
-	int		c2;
+	t_list	*node;
 
-	i = 0;
-	while (i < n && s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
-	{
-		i++;
-	}
-	c1 = s1[i] % 256;
-	c2 = s2[i] % 256;
-	if (c1 < 0)
-		c1 += 256;
-	if (c2 < 0)
-		c2 += 256;
-	if (i == n)
-		return (0);
-	return (c1 - c2);
+	node = lst;
+	if (!lst)
+		return (NULL);
+	while (node->next != NULL)
+		node = node->next;
+	return (node);
 }

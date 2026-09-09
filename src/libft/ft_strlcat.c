@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 22:12:37 by hchartie          #+#    #+#             */
-/*   Updated: 2025/11/16 17:56:51 by hchartie         ###   ########.fr       */
+/*   Created: 2025/11/11 19:17:41 by hchartie          #+#    #+#             */
+/*   Updated: 2025/11/14 15:41:07 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
+	size_t	dest_len;
+	size_t	src_len;
 	size_t	i;
-	int		c1;
-	int		c2;
 
+	src_len = ft_strlen(src);
+	dest_len = ft_strlen(dst);
+	if (size == 0)
+		return (src_len + size);
 	i = 0;
-	while (i < n && s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+	while (src[i] != '\0' && (i + dest_len < size - 1))
 	{
+		dst[i + dest_len] = src[i];
 		i++;
 	}
-	c1 = s1[i] % 256;
-	c2 = s2[i] % 256;
-	if (c1 < 0)
-		c1 += 256;
-	if (c2 < 0)
-		c2 += 256;
-	if (i == n)
-		return (0);
-	return (c1 - c2);
+	dst[i + dest_len] = '\0';
+	if (dest_len < size)
+		return (src_len + dest_len);
+	return (size + src_len);
 }

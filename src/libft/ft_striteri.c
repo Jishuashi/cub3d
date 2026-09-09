@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 22:12:37 by hchartie          #+#    #+#             */
-/*   Updated: 2025/11/16 17:56:51 by hchartie         ###   ########.fr       */
+/*   Created: 2025/11/19 12:23:23 by hchartie          #+#    #+#             */
+/*   Updated: 2025/11/19 12:28:26 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+/**
+ * @brief Applies the function ’f’ to each character of the
+	string passed as argument, passing its index as
+	the first argument. Each character is passed by
+	address to ’f’ so it can be modified if necessary.
+ * 
+ * @param s The string to iterate over.
+ * @param f The function to apply to each character.
+ */
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
+	size_t	len;
 	size_t	i;
-	int		c1;
-	int		c2;
 
+	len = ft_strlen(s);
 	i = 0;
-	while (i < n && s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+	while (i < len)
 	{
+		f(i, &s[i]);
 		i++;
 	}
-	c1 = s1[i] % 256;
-	c2 = s2[i] % 256;
-	if (c1 < 0)
-		c1 += 256;
-	if (c2 < 0)
-		c2 += 256;
-	if (i == n)
-		return (0);
-	return (c1 - c2);
 }
