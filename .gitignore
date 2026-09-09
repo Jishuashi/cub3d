@@ -1,0 +1,9 @@
+cube3d
+.vscode
+.DS_store
+*.txt
+*.o
+*.a
+cub3d
+vgcore.*
+test
