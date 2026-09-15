@@ -45,6 +45,9 @@ SRCS        =							\
 			src/load_textures.c	     	\
 			src/parse_colors.c			\
 			src/flood_fill.c			\
+			src/player.c				\
+			src/render.c				\
+			src/raycast.c				\
 
 
 OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
