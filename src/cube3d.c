@@ -11,8 +11,11 @@
 /* ************************************************************************** */
 
 #include "includes/cube3d.h"
-static int	close_window(t_game *data)
+static int	close_window(void *param)
 {
+	t_game	*data;
+
+	data = (t_game *)param;
 	mlx_loop_end(data->mlx);
 	return (0);
 }

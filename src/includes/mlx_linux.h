@@ -22,7 +22,7 @@ char	*mlx_get_data_addr(void *img_ptr, int *bits_per_pixel, int *size_line,
 		int *endian);
 int		mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr,
 		int x, int y);
-int		mlx_hook(void *win_ptr, int event, int mask, int (*funct)(),
+int		mlx_hook(void *win_ptr, int event, int mask, int (*funct)(void *),
 		void *param);
 int		mlx_loop(void *mlx_ptr);
 int		mlx_loop_end(void *mlx_ptr);

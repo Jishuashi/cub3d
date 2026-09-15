@@ -14,7 +14,7 @@ LDFLAGS     = -L$(MLX_DIR) -L/opt/X11/lib -lmlx -lXext -lX11 -lm
 else ifeq ($(UNAME_S),Linux)
 PLATFORM    = Linux
 MLX_INC     = /usr/include
-LDFLAGS     = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+LDFLAGS     = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -no-pie
 else
 $(error Unsupported operating system: $(UNAME_S))
 endif
