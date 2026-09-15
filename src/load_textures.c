@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/09 12:53:41 by ldeplace          #+#    #+#             */
-/*   Updated: 2026/09/09 12:53:57 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/09/10 17:40:09 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	free_texture_images(void *mlx, t_assets *assets)
 	if (assets->no_img.image)
 		mlx_destroy_image(mlx, assets->no_img.image);
 	if (assets->so_img.image)
-		mlx_destroy_image(mlx, assets->so_img.image);
+		mlx_destroy_image(mlx, assets->so_img.image);se
+		
 	if (assets->ea_img.image)
 		mlx_destroy_image(mlx, assets->ea_img.image);
 	if (assets->we_img.image)

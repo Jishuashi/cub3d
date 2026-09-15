@@ -3,14 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/09/09 12:55:44 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/09/15 13:25:48 by louka            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cube3d.h"
+
+static int	color_value(t_colors *color)
+{
+	return ((color->red << 16) | (color->green << 8) | color->blue);
+}
+
+static void	put_pixel(t_image *image, int x, int y, int color)
+{
+	char	*pixel;
+
+	pixel = image->data + y * image->line_length
+		+ x * (image->bits_per_pixel / 8);
+	*(unsigned int *)pixel = color;
+}
+
+static void	draw_background(t_game *data)
+{
+	int	x;
+	int	y;
+	int	ceiling;
+	int	floor;
+
+	ceiling = color_value(data->assets->ceiling);
+	floor = color_value(data->assets->floor);
+	x = 0;
+	while (x < SCREEN_WIDTH)
+	{
+		y = 0;
+		while (ty < SCREEN_HEIGHT / 2)
+			put_pixel(&data->screen, x, ty++, ceiling);
+		while (ty < SCREEN_HEIGHT)
+			put_pixel(&data->screen, x, ty++, floor);
+		x++;
+	}
+}
+
+static int	close_window(t_game *data)
+{
+	mlx_loop_end(data->mlx);
+	return (0);
+}
 
 static void	init_error(t_game *data, t_file *file, char *message)
 {
@@ -84,28 +125,17 @@ void	init(t_game *data, t_file *file, int map_line)
 
 void	start(t_game *data)
 {
-	size_t		i;
-	size_t		j;
-
-	i = 0;
-	printf("Map:\n");
-	while (i < data->map->heigh)
-	{
-		j = 0;
-		while (data->map->grid[i][j])
-		{
-			printf("%c", data->map->grid[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-	printf("\n");
-	printf("NO : %s\nSO : %s\n", data->assets->no, data->assets->so);
-	printf("EA : %s\nWE : %s\n", data->assets->ea, data->assets->we);
-	printf("\n");
-	printf("F Colors | R : %d G: %d B:%d\n", data->assets->floor->red,
-		data->assets->floor->green, data->assets->floor->blue);
-	printf("C Colors | R : %d G: %d B:%d\n", data->assets->ceiling->red,
-		data->assets->ceiling->green, data->assets->ceiling->blue);
+	data->win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
+	data->screen.image = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!data->win || !data->screen.image)
+		return ;
+	data->screen.data = mlx_get_data_addr(data->screen.image,
+			&data->screen.bits_per_pixel, &data->screen.line_length,
+			&data->screen.endian);
+	draw_background(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->screen.image, 0, 0);
+	mlx_hook(data->win, 17, 0, close_window, data);
+	mlx_loop(data->mlx);
+	mlx_destroy_image(data->mlx, data->screen.image);
+	mlx_destroy_window(data->mlx, data->win);
 }
