@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:18 by hchartie          #+#    #+#             */
-/*   Updated: 2026/09/15 13:50:10 by louka            ###   ########.fr       */
+/*   Updated: 2026/09/16 22:45:56 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include "./mlx_linux.h"
 # include <fcntl.h>
 
-# define SCREEN_WIDTH 1280
-# define SCREEN_HEIGHT 720
+# define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 1080
 
 typedef struct s_image
 {
@@ -71,6 +71,12 @@ typedef struct s_game
 	t_assets	*assets;
 	t_image		screen;
 	t_player	player;
+	int		key_w;
+	int		key_a;
+	int		key_s;
+	int		key_d;
+	int		key_left;
+	int		key_right;
 }	t_game;
 
 int		check_map(t_map *map);
@@ -78,6 +84,9 @@ void	init(t_game *data, t_file *file, int map_line);
 void	start(t_game *data);
 int		flood_fill(char **map, t_point *pos);
 void	init_player(t_game *data);
+int		key_press(int keycode, void *param);
+int		key_release(int keycode, void *param);
+int		game_loop(void *param);
 void	draw_background(t_game *data);
 void	draw_walls(t_game *data);
 void	put_pixel(t_image *image, int x, int y, int color);

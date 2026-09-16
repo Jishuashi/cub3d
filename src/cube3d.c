@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/09/15 13:50:10 by louka            ###   ########.fr       */
+/*   Updated: 2026/09/16 22:09:09 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int ac, char *av[])
 	if (ac != 2)
 		return (ft_putstr_fd("Error\nArg must be only a map in format .cub\n",
 				2), 1);
+	ft_bzero(&data, sizeof(data));
 	map_line = 0;
 	check_path(av[1]);
 	if (!check_file(av[1]))
@@ -74,6 +75,7 @@ void	init(t_game *data, t_file *file, int map_line)
 		return (free_file(file), free_map(data->map)
 			, ft_print_err("", "Memory allocation failed\n", NULL)
 			, exit(1));
+	ft_putstr_fd("Map loaded successfully\n", 1);
 	data->assets = parse_textures(file, map_line);
 	if (!data->assets)
 		return (free_file(file), free_map(data->map)
@@ -103,7 +105,11 @@ void	start(t_game *data)
 	draw_background(data);
 	draw_walls(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->screen.image, 0, 0);
-	mlx_hook(data->win, 17, 0, close_window, data);
+	ft_putstr_fd("Controls: W/S or up/down to move, A/D or left/right to turn, Q or ESC to quit\n", 1);
+	mlx_hook(data->win, 2, 1L << 0, (int (*)())key_press, data);
+	mlx_key_hook(data->win, key_release, data);
+	mlx_hook(data->win, 17, 0, (int (*)())close_window, data);
+	mlx_loop_hook(data->mlx, game_loop, data);
 	mlx_loop(data->mlx);
 	mlx_destroy_image(data->mlx, data->screen.image);
 	mlx_destroy_window(data->mlx, data->win);

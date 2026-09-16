@@ -1,7 +1,7 @@
 NAME        = cub3d
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -g
+CFLAGS      = -Wall -Wextra -Werror -Wno-cast-function-type -g
 MLX_DIR     = mlx
 CPPFLAGS    = -Isrc/includes -I$(LIBFT_DIR) -I$(MLX_DIR)
 MLX         = $(MLX_DIR)/libmlx.a
