@@ -6,7 +6,7 @@
 /*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 13:50:21 by louka             #+#    #+#             */
-/*   Updated: 2026/09/16 22:09:09 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/16 23:12:47 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	init_player(t_game *data)
 	while (y < (int)data->map->heigh)
 	{
 		x = 0;
-		while (data->map->grid[y][x])
+		while (data->map->grid[y][x++])
 		{
 			orientation = data->map->grid[y][x];
 			if (orientation == 'N' || orientation == 'S'
@@ -147,7 +147,6 @@ void	init_player(t_game *data)
 				data->player.plane_y = data->player.dir_x * 0.66;
 				return ;
 			}
-			x++;
 		}
 		y++;
 	}
