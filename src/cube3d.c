@@ -6,7 +6,7 @@
 /*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/09/17 10:14:24 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/17 12:48:54 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int ac, char *av[])
 	start(&data);
 	free_texture_images(data.mlx, data.assets);
 	mlx_destroy_display(data.mlx);
+	free(data.mlx);
 	return (free_file(file), free_textures(data.assets), free_map(data.map), 0);
 }
 

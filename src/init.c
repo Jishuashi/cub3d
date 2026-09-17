@@ -6,7 +6,7 @@
 /*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 10:18:23 by louka2b           #+#    #+#             */
-/*   Updated: 2026/09/17 10:20:05 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/17 12:48:54 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	init_error(t_game *data, t_file *file, char *message)
 	free_texture_images(data->mlx, data->assets);
 	free_textures(data->assets);
 	mlx_destroy_display(data->mlx);
+	free(data->mlx);
 	ft_print_err("", message, NULL);
 	exit(1);
 }
