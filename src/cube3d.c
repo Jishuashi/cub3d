@@ -6,11 +6,15 @@
 /*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/09/16 22:09:09 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/17 10:14:24 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cube3d.h"
+#include "includes/movement.h"
+#include "includes/player.h"
+#include "includes/render.h"
+
 static int	close_window(void *param)
 {
 	t_game	*data;
@@ -18,17 +22,6 @@ static int	close_window(void *param)
 	data = (t_game *)param;
 	mlx_loop_end(data->mlx);
 	return (0);
-}
-
-static void	init_error(t_game *data, t_file *file, char *message)
-{
-	free_file(file);
-	free_map(data->map);
-	free_texture_images(data->mlx, data->assets);
-	free_textures(data->assets);
-	mlx_destroy_display(data->mlx);
-	ft_print_err("", message, NULL);
-	exit(1);
 }
 
 int	main(int ac, char *av[])
@@ -58,40 +51,6 @@ int	main(int ac, char *av[])
 	return (free_file(file), free_textures(data.assets), free_map(data.map), 0);
 }
 
-void	init(t_game *data, t_file *file, int map_line)
-{
-	int	is_valid;
-
-	data->map = parse_map(file, map_line);
-	if (!data->map)
-		return (free_file(file)
-			, ft_print_err("", "Memory allocation failed\n", NULL), exit(1));
-	is_valid = check_map(data->map);
-	if (!is_valid)
-		return (free_file(file), free_map(data->map), ft_print_err(""
-				, "Map not surrounded by Wall or invalid map char\n", NULL)
-			, exit(1));
-	if (is_valid < 0)
-		return (free_file(file), free_map(data->map)
-			, ft_print_err("", "Memory allocation failed\n", NULL)
-			, exit(1));
-	ft_putstr_fd("Map loaded successfully\n", 1);
-	data->assets = parse_textures(file, map_line);
-	if (!data->assets)
-		return (free_file(file), free_map(data->map)
-			, ft_print_err("", "Memory allocation failed\n", NULL), exit(1));
-	data->mlx = mlx_init();
-	if (!data->mlx)
-		return (free_file(file), free_map(data->map)
-			, free_textures(data->assets), ft_print_err(""
-				, "MLX initialization failed\n", NULL), exit(1));
-	if (!load_textures(data->mlx, data->assets))
-		return (init_error(data, file, "Unable to load MLX textures\n"));
-	if (!check_colors_value(data->assets))
-		return (init_error(data, file,
-				"Colors value must be between 0 and 255"));
-}
-
 void	start(t_game *data)
 {
 	data->win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
@@ -105,11 +64,11 @@ void	start(t_game *data)
 	draw_background(data);
 	draw_walls(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->screen.image, 0, 0);
-	ft_putstr_fd("Controls: W/S or up/down to move, A/D or left/right to turn, Q or ESC to quit\n", 1);
+	ft_putstr_fd("Controls: W/S move, A/D turn, Q or ESC quits\n", 1);
 	mlx_hook(data->win, 2, 1L << 0, (int (*)())key_press, data);
 	mlx_key_hook(data->win, key_release, data);
 	mlx_hook(data->win, 17, 0, (int (*)())close_window, data);
-	mlx_loop_hook(data->mlx, game_loop, data);
+	mlx_loop_hook(data->mlx, (int (*)())game_loop, data);
 	mlx_loop(data->mlx);
 	mlx_destroy_image(data->mlx, data->screen.image);
 	mlx_destroy_window(data->mlx, data->win);

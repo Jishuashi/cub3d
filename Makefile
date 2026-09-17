@@ -28,6 +28,7 @@ LIBFT_OBJS  = $(patsubst $(LIBFT_DIR)/%.c,$(LIBFT_OBJ_DIR)/%.o,$(LIBFT_SRCS))
 
 SRCS        =							\
 			src/cube3d.c				\
+			src/init.c				\
 			src/parse_map.c				\
 			src/utils/file_utils.c		\
 			src/utils/free_utils.c		\
@@ -46,7 +47,11 @@ SRCS        =							\
 			src/parse_colors.c			\
 			src/flood_fill.c			\
 			src/player.c				\
+			src/movement.c				\
+			src/update_player.c			\
 			src/render.c				\
+			src/wall_render.c			\
+			src/raycast_utils.c			\
 			src/raycast.c				\
 
 

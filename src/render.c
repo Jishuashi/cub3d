@@ -6,11 +6,12 @@
 /*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 13:50:34 by louka             #+#    #+#             */
-/*   Updated: 2026/09/16 21:55:49 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/17 09:57:22 by louka2b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cube3d.h"
+#include "includes/render.h"
 
 static int	color_value(t_colors *color)
 {
