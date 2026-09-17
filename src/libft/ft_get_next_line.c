@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:38:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/19 19:34:30 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/01/08 13:03:49 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ char	*ft_get_next_line(int fd)
 	if (!acc)
 		return (NULL);
 	line = ft_get_line(acc);
-	if (!line)
-		return (free(acc), acc = NULL, NULL);
 	acc = ft_clean_acc(acc);
 	return (line);
 }
@@ -56,19 +54,21 @@ static char	*ft_put_in_acc(int fd, char *acc)
 
 	buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
-		return (free(acc), NULL);
+		return (NULL);
 	read_bytes = 1;
 	while (!ft_gnl_strchr(acc, '\n') && read_bytes > 0)
 	{
 		read_bytes = read (fd, buff, BUFFER_SIZE);
 		if (read_bytes == -1)
-			return (free(acc), free(buff), NULL);
+		{
+			free(buff);
+			free(acc);
+			return (NULL);
+		}
 		buff[read_bytes] = '\0';
-		temp = ft_strjoin(acc, buff);
-		if (!temp)
-			return (free(acc), free(buff), NULL);
-		free(acc);
-		acc = temp;
+		temp = acc;
+		acc = ft_strjoin(temp, buff);
+		free(temp);
 	}
 	free(buff);
 	return (acc);
@@ -125,13 +125,17 @@ static char	*ft_clean_acc(char *acc)
 	while (acc[i] && acc[i] != '\n')
 		i++;
 	if (!acc[i])
-		return (free(acc), NULL);
+	{
+		free(acc);
+		return (NULL);
+	}
 	res = (char *)malloc(sizeof(char) * (ft_strlen(acc) - i + 1));
 	if (!res)
-		return (free(acc), NULL);
+		return (NULL);
 	i++;
 	while (acc[i])
 		res[j++] = acc[i++];
 	res[j] = '\0';
-	return (free(acc), res);
+	free(acc);
+	return (res);
 }

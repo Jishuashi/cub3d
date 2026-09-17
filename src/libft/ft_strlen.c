@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 15:40:07 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/05 02:59:03 by hchartie         ###   ########.fr       */
+/*   Updated: 2025/11/14 16:36:51 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ size_t	ft_strlen(const char *str)
 {
 	int	res;
 
-	if (!str)
-		return (0);
 	res = 0;
 	while (*str)
 	{

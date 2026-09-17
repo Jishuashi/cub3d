@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 01:57:59 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 15:40:23 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/09/09 12:53:57 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,7 @@ t_assets	*parse_textures(t_file *file, int i_line)
 	res = (t_assets *)malloc(sizeof(t_assets));
 	if (!res)
 		return (NULL);
-	res->no = NULL;
-	res->so = NULL;
-	res->ea = NULL;
-	res->we = NULL;
-	res->floor = NULL;
-	res->ceiling = NULL;
+	ft_bzero(res, sizeof(t_assets));
 	res->no = get_textures(file, "NO", i_line);
 	res->so = get_textures(file, "SO", i_line);
 	res->ea = get_textures(file, "EA", i_line);

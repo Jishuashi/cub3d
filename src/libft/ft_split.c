@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 13:15:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/09 23:44:44 by hchartie         ###   ########.fr       */
+/*   Updated: 2025/11/24 15:26:56 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ static int	ft_split_words(char **res, char const *s, char c, int word)
 
 static void	free_all(char	**strs, size_t	idx)
 {
-	while (idx > 0)
+	while (strs[idx - 1] && strs)
 	{
-		idx--;
 		free(strs[idx]);
+		idx--;
 	}
 	free(strs);
 }

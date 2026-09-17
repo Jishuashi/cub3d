@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 20:45:33 by hchartie          #+#    #+#             */
-/*   Updated: 2026/05/11 13:19:13 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/01/08 13:02:29 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ char	*ft_strchr(const char *str, int c)
 {
 	if (c > 255)
 		c %= 256;
-	if (!str)
-		return (NULL);
 	while (*str)
 	{
 		if (*str == c)

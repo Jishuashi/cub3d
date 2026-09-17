@@ -1,15 +1,34 @@
 NAME        = cub3d
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -g
-CPPFLAGS    = -I$(LIBFT_DIR)
+CFLAGS      = -Wall -Wextra -Werror -Wno-cast-function-type -g
+MLX_DIR     = mlx
+CPPFLAGS    = -Isrc/includes -I$(LIBFT_DIR) -I$(MLX_DIR)
+MLX         = $(MLX_DIR)/libmlx.a
+UNAME_S     := $(shell uname -s)
+
+ifeq ($(UNAME_S),Darwin)
+PLATFORM    = macOS
+MLX_INC     = /opt/X11/include
+LDFLAGS     = -L$(MLX_DIR) -L/opt/X11/lib -lmlx -lXext -lX11 -lm
+else ifeq ($(UNAME_S),Linux)
+PLATFORM    = Linux
+MLX_INC     = /usr/include
+LDFLAGS     = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -no-pie
+else
+$(error Unsupported operating system: $(UNAME_S))
+endif
 
 OBJ_DIR     = obj
 LIBFT_DIR   = src/libft
+LIBFT_OBJ_DIR = $(OBJ_DIR)/libft
 LIBFT       = $(LIBFT_DIR)/libft.a
+LIBFT_SRCS  = $(wildcard $(LIBFT_DIR)/*.c)
+LIBFT_OBJS  = $(patsubst $(LIBFT_DIR)/%.c,$(LIBFT_OBJ_DIR)/%.o,$(LIBFT_SRCS))
 
 SRCS        =							\
 			src/cube3d.c				\
+			src/init.c				\
 			src/parse_map.c				\
 			src/utils/file_utils.c		\
 			src/utils/free_utils.c		\
@@ -24,8 +43,16 @@ SRCS        =							\
 			src/utils/point.c			\
 			src/gnl_cub.c 				\
 			src/parse_textures.c		\
+			src/load_textures.c	     	\
 			src/parse_colors.c			\
 			src/flood_fill.c			\
+			src/player.c				\
+			src/movement.c				\
+			src/update_player.c			\
+			src/render.c				\
+			src/wall_render.c			\
+			src/raycast_utils.c			\
+			src/raycast.c				\
 
 
 OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
@@ -42,13 +69,23 @@ RED         = \033[1;31m
 RESET       = \033[0m
 
 all: $(NAME)
+	@printf "$(CYAN)Platform:$(RESET) $(PLATFORM)\n"
 
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 	@printf "$(YELLOW)✔ $(NAME) built successfully$(RESET)\n"
 
-$(LIBFT):
-	@$(MAKE) -C $(LIBFT_DIR) all
+$(LIBFT): $(LIBFT_OBJS)
+	@ar rcs $@ $^
+
+
+$(LIBFT_OBJ_DIR)/%.o: $(LIBFT_DIR)/%.c
+	@$(MKDIR) $(dir $@)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	@printf "$(CYAN)• Compiled:$(RESET) %s\n" "$<"
+
+$(MLX):
+	@$(MAKE) -C $(MLX_DIR) -f Makefile.mk INC=$(MLX_INC) all
 
 $(OBJ_DIR)/%.o: %.c
 	@$(MKDIR) $(dir $@)
@@ -58,14 +95,16 @@ $(OBJ_DIR)/%.o: %.c
 clean:
 	@$(RM) -r $(OBJ_DIR)
 	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
-	@$(MAKE) -C $(LIBFT_DIR) clean
+	@$(RM) $(LIBFT) $(LIBFT_OBJS)
+	@$(MAKE) -C $(MLX_DIR) -f Makefile.mk clean
 
 fclean:
 	@$(RM) $(NAME)
 	@printf "$(RED)✦ Executable removed$(RESET)\n"
-	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(RM) $(LIBFT) $(LIBFT_OBJS)
 	@$(RM) -r $(OBJ_DIR)
 	@printf "$(BLUE)✦ Object files removed$(RESET)\n"
+	@$(MAKE) -C $(MLX_DIR) -f Makefile.mk clean
 
 norm:
 	@ERR_COUNT=$$(norminette src/ | grep "Error" | wc -l); \
