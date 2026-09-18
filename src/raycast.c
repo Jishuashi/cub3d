@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 13:50:28 by louka             #+#    #+#             */
-/*   Updated: 2026/09/17 10:11:34 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/18 14:47:38 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static void	prepare_wall(t_game *data, t_ray *ray)
 	if (ray->perp_dist < 0.001)
 		ray->perp_dist = 0.001;
 	ray->line_height = (int)(SCREEN_HEIGHT / ray->perp_dist);
-	if (ray->line_height > SCREEN_HEIGHT * 2)
-		ray->line_height = SCREEN_HEIGHT * 2;
 	ray->draw_start = -ray->line_height / 2 + SCREEN_HEIGHT / 2;
 	ray->draw_end = ray->line_height / 2 + SCREEN_HEIGHT / 2;
 	if (ray->draw_start < 0)
