@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 10:18:12 by louka2b           #+#    #+#             */
-/*   Updated: 2026/09/17 10:27:32 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/29 15:22:45 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cube3d.h"
-#include "includes/movement.h"
-#include "includes/render.h"
+#include "../includes/cube3d.h"
+#include "../includes/movement.h"
+#include "../includes/render.h"
 #include <math.h>
 
 static int	cell_walkable(t_game *data, double x, double y)

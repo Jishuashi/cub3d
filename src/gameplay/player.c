@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 13:50:21 by louka             #+#    #+#             */
-/*   Updated: 2026/09/17 10:25:34 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/29 15:23:01 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cube3d.h"
-#include "includes/movement.h"
-#include "includes/player.h"
-#include "includes/render.h"
+#include "../includes/cube3d.h"
+#include "../includes/movement.h"
+#include "../includes/player.h"
+#include "../includes/render.h"
 
 int	key_press(int keycode, void *param)
 {

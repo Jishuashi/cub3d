@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 10:18:04 by louka2b           #+#    #+#             */
-/*   Updated: 2026/09/17 10:18:06 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/29 15:20:41 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cube3d.h"
+#include "../includes/cube3d.h"
 
 static void	init_ray_y(t_game *data, t_ray *ray)
 {

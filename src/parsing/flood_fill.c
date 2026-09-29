@@ -6,11 +6,11 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 15:34:56 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/23 17:19:04 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/09/29 15:20:00 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cube3d.h"
+#include "../includes/cube3d.h"
 
 int	flood_fill(char **map, t_point *pos)
 {

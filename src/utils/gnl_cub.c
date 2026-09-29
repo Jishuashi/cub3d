@@ -6,11 +6,11 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 23:38:05 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 01:25:52 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/09/29 15:22:13 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "../libft/libft.h"
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>

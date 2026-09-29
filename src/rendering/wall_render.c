@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   wall_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 10:17:58 by louka2b           #+#    #+#             */
-/*   Updated: 2026/09/17 10:22:14 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/29 15:21:52 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cube3d.h"
-#include "includes/render.h"
+#include "../includes/cube3d.h"
+#include "../includes/render.h"
 
 static t_texture	*get_texture(t_game *data, t_ray *ray)
 {
