@@ -6,11 +6,11 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 18:15:30 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/23 17:19:44 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/09/29 15:20:01 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cube3d.h"
+#include "../includes/cube3d.h"
 
 /**
  * Splits one file line and removes its trailing newline from the value.

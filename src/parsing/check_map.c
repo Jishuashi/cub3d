@@ -6,11 +6,11 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 17:10:51 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/23 17:29:47 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/09/29 15:20:04 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/cube3d.h"
+#include "../includes/cube3d.h"
 
 static int	is_valid(char **copy, char curr, t_point *pos);
 

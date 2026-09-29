@@ -6,11 +6,11 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 02:52:06 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 15:40:23 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/09/29 15:19:59 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cube3d.h"
+#include "../includes/cube3d.h"
 
 /**
  * Finds a color directive and joins its space-separated value tokens.

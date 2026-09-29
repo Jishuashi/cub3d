@@ -26,33 +26,33 @@ LIBFT       = $(LIBFT_DIR)/libft.a
 LIBFT_SRCS  = $(wildcard $(LIBFT_DIR)/*.c)
 LIBFT_OBJS  = $(patsubst $(LIBFT_DIR)/%.c,$(LIBFT_OBJ_DIR)/%.o,$(LIBFT_SRCS))
 
-SRCS        =							\
-			src/cube3d.c				\
-			src/init.c				\
-			src/parse_map.c				\
-			src/utils/file_utils.c		\
-			src/utils/free_utils.c		\
-			src/utils/print_utils.c		\
-			src/utils/colors_utils.c	\
-			src/utils/str_utils.c		\
-			src/check_map.c				\
-			src/cub_format_checker.c	\
-			src/utils/err_utils.c		\
-			src/utils/read_utils.c		\
-			src/utils/map_copy.c		\
-			src/utils/point.c			\
-			src/gnl_cub.c 				\
-			src/parse_textures.c		\
-			src/load_textures.c	     	\
-			src/parse_colors.c			\
-			src/flood_fill.c			\
-			src/player.c				\
-			src/movement.c				\
-			src/update_player.c			\
-			src/render.c				\
-			src/wall_render.c			\
-			src/raycast_utils.c			\
-			src/raycast.c				\
+SRCS        =									\
+			src/cube3d.c						\
+			src/init.c							\
+			src/parsing/parse_map.c				\
+			src/utils/file_utils.c				\
+			src/utils/free_utils.c				\
+			src/utils/print_utils.c				\
+			src/utils/colors_utils.c			\
+			src/utils/str_utils.c				\
+			src/parsing/check_map.c				\
+			src/parsing/cub_format_checker.c	\
+			src/utils/err_utils.c				\
+			src/utils/read_utils.c				\
+			src/utils/map_copy.c				\
+			src/utils/point.c					\
+			src/utils/gnl_cub.c 				\
+			src/parse_textures.c				\
+			src/parsing/load_textures.c	    	\
+			src/parsing/parse_colors.c			\
+			src/parsing/flood_fill.c			\
+			src/gameplay/player.c				\
+			src/gamepalay/movement.c			\
+			src/gameplay/update_player.c		\
+			src/rendering/render.c				\
+			src/rendering/wall_render.c			\
+			src/raycasting/raycast_utils.c		\
+			src/raycasting/raycast.c			\
 
 
 OBJS        = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))

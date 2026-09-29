@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   load_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka <louka@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/09 12:53:41 by ldeplace          #+#    #+#             */
-/*   Updated: 2026/09/15 13:50:10 by louka            ###   ########.fr       */
+/*   Updated: 2026/09/29 15:21:04 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cube3d.h"
+#include "../includes/cube3d.h"
 
 static int	load_texture(void *mlx, char *path, t_texture *texture)
 {

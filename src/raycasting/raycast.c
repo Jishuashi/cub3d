@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 13:50:28 by louka             #+#    #+#             */
-/*   Updated: 2026/09/18 14:47:38 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/09/29 15:23:53 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cube3d.h"
-#include "includes/raycast.h"
-#include "includes/render.h"
-#include "includes/raycast.h"
+#include "../includes/cube3d.h"
+#include "../includes/raycast.h"
+#include "../includes/render.h"
+#include "../includes/raycast.h"
 
 static void	cast_ray(t_game *data, t_ray *ray)
 {

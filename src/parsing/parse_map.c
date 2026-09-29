@@ -6,11 +6,11 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 14:08:53 by louka             #+#    #+#             */
-/*   Updated: 2026/08/22 16:37:57 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/09/29 15:20:27 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/parse_map.h"
+#include "../includes/parse_map.h"
 
 /**
  * Builds a map structure starting from the map section of a parsed file.

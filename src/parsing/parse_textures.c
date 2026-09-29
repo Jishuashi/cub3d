@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 01:57:59 by hchartie          #+#    #+#             */
-/*   Updated: 2026/09/09 12:53:57 by ldeplace         ###   ########.fr       */
+/*   Updated: 2026/09/29 15:20:32 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cube3d.h"
+#include "../includes/cube3d.h"
 
 static	char	*get_textures(t_file *file, char *key, int i_line);
 

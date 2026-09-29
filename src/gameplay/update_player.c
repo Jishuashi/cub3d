@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   update_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 10:17:51 by louka2b           #+#    #+#             */
-/*   Updated: 2026/09/17 10:27:32 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/29 15:23:04 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/movement.h"
+#include "../includes/movement.h"
 
 void	update_player(t_game *data)
 {
