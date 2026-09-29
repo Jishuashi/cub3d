@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 18:08:48 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/23 17:04:38 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/09/29 16:32:26 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,19 @@ typedef struct s_point
 	int	x;
 	int	y;
 }	t_point;
+
+typedef struct s_dict
+{
+	char *key;
+	char *val;
+}	t_dict;
+
+typedef struct s_xpm
+{
+	char	*name;
+	char	**textures;
+	t_dict	*dict_color;
+}	t_xpm;
 
 int		check_file(char *path);
 void	free_map(t_map *map);
