@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 03:57:53 by hchartie          #+#    #+#             */
-/*   Updated: 2026/08/22 15:40:42 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/10/08 09:43:36 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,30 @@ static void	color_error_exit(t_parsed *parsed, char **sp_val, char *var
 	if (sp_val)
 		free_double(sp_val);
 	ft_print_err(var, msg, parsed);
+}
+
+/**
+ * Detects misplaced commas in a color value.
+ *
+ * Trailing newlines are ignored. A leading comma, a trailing comma, two
+ * consecutive commas or an empty value are rejected, since ft_split would
+ * otherwise silently drop the empty components.
+ *
+ * @param val Color value to inspect.
+ * @return 1 if the commas are misplaced, 0 otherwise.
+ */
+static int	has_bad_commas(char *val)
+{
+	size_t	len;
+
+	len = ft_strlen(val);
+	while (len > 0 && val[len - 1] == '\n')
+		len--;
+	if (len == 0 || val[0] == ',' || val[len - 1] == ',')
+		return (1);
+	if (ft_strnstr(val, ",,", len))
+		return (1);
+	return (0);
 }
 
 /**
@@ -53,6 +77,9 @@ void	validate_color_components(t_parsed *parsed, char **split_val, char *var)
 		if (!check_int_str(split_val[i]))
 			color_error_exit(parsed, split_val, var,
 				" contains a non-numeric or negative value\n");
+		if (ft_strlen(split_val[i]) > 3)
+			color_error_exit(parsed, split_val, var,
+				" value out of range (0-255)\n");
 		i++;
 	}
 	free_double(split_val);
@@ -75,7 +102,8 @@ void	check_color(t_parsed *parsed)
 		return ;
 	if (parsed->sp_l[0][0] == '\n')
 		return ;
-	if (ft_strlen(parsed->sp_l[0]) == 1)
+	if ((!ft_strncmp(parsed->sp_l[0], "F", 2)
+			|| !ft_strncmp(parsed->sp_l[0], "C", 2)))
 	{
 		parsed->sp_l[1] = reduce_space_val(&parsed->sp_l[1]);
 		if (!parsed->sp_l[1] || parsed->sp_l[1][0] == '\0')
@@ -87,7 +115,7 @@ void	check_color(t_parsed *parsed)
 		i = 0;
 		while (split_val[i])
 			i++;
-		if (i != 3)
+		if (i != 3 || has_bad_commas(parsed->sp_l[1]))
 			color_error_exit(parsed, split_val, parsed->sp_l[0],
 				" invalid color format\n");
 		validate_color_components(parsed, split_val, parsed->sp_l[0]);

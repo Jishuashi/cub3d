@@ -63,3 +63,28 @@ static int	is_valid(char **copy, char curr, t_point *pos)
 		return (flood_fill(copy, pos));
 	return (free(pos), res);
 }
+
+/**
+ * Counts the player spawn characters (N, S, E, W) in the map grid.
+ *
+ * @param grid NULL-terminated map grid.
+ * @return The number of spawn characters found.
+ */
+int	count_players(char **grid)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (grid[++i])
+	{
+		j = -1;
+		while (grid[i][++j])
+			if (grid[i][j] == 'N' || grid[i][j] == 'S'
+				|| grid[i][j] == 'E' || grid[i][j] == 'W')
+				count++;
+	}
+	return (count);
+}

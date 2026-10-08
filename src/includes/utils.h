@@ -57,6 +57,7 @@ t_file	*read_file(char	*path);
 void	free_file(t_file *file);
 char	*reduce_space_val(char **src);
 void	err_map_pos(t_parsed *par);
+void	check_key_value(t_parsed *par);
 char	*gnl_cub(int fd);
 int		check_colors_value(t_assets *assets);
 char	**copy_map(char **map, size_t row);

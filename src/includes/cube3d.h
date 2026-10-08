@@ -85,6 +85,7 @@ typedef struct s_game
 }	t_game;
 
 int					check_map(t_map *map);
+int					count_players(char **grid);
 void				init(t_game *data, t_file *file, int map_line);
 void				start(t_game *data);
 int					flood_fill(char **map, t_point *pos);

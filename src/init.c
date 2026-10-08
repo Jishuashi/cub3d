@@ -32,6 +32,10 @@ static void	init_map(t_game *data, t_file *file, int map_line)
 	if (!data->map)
 		return (free_file(file), ft_print_err("", "Memory allocation failed\n",
 				NULL), exit(1));
+	if (count_players(data->map->grid) != 1)
+		return (free_file(file), free_map(data->map), ft_print_err("",
+				"Map must contain exactly one player (N, S, E or W)\n",
+				NULL), exit(1));
 	is_valid = check_map(data->map);
 	if (!is_valid)
 		return (free_file(file), free_map(data->map), ft_print_err("",

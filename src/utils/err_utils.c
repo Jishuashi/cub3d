@@ -42,3 +42,24 @@ void	err_map_pos(t_parsed	*par)
 		i++;
 	}
 }
+
+/**
+ * Validates the value attached to a recognized header key.
+ *
+ * Every key needs a value. Texture keys (two letters) must have exactly one
+ * value, and that value must be a readable file.
+ *
+ * @param par Parsing context containing the current split line.
+ */
+void	check_key_value(t_parsed *par)
+{
+	if (!par->sp_l[1] || par->sp_l[1][0] == '\0')
+		ft_print_err(par->sp_l[0], " missing value\n", par);
+	if (ft_strlen(par->sp_l[0]) != 2)
+		return ;
+	if (par->sp_l[2] && par->sp_l[2][0] != '\n')
+		ft_print_err(par->sp_l[0], " too many values\n", par);
+	if (!check_file(par->sp_l[1]))
+		ft_print_err(par->sp_l[1],
+			" file not found or no permission\n", par);
+}

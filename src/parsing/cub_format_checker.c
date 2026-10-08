@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/07 18:15:30 by hchartie          #+#    #+#             */
-/*   Updated: 2026/09/29 15:20:01 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/10/08 09:33:45 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,19 +88,17 @@ void	check_key(t_parsed *par, int *nb_key, char **u_keys)
 
 	i = 0;
 	e = -1;
-	while (id[i])
+	while (par->sp_l[0] && id[i])
 	{
-		if (!ft_strncmp(par->sp_l[0], id[i], ft_strlen(id[i])))
+		if (!ft_strncmp(par->sp_l[0], id[i], ft_strlen(id[i]) + 1))
 		{
 			if (*nb_key >= 6)
 				ft_print_err("", "Too many key\n", par);
 			while (++e < *nb_key)
-				if (!ft_strncmp(par->sp_l[0], u_keys[e], ft_strlen(u_keys[e])))
+				if (!ft_strncmp(par->sp_l[0], u_keys[e]
+						, (ft_strlen(u_keys[e]) + 1)))
 					ft_print_err(par->sp_l[0], " duplicated key\n", par);
-			if (ft_strlen(par->sp_l[0]) == 2)
-				if (!check_file(par->sp_l[1]))
-					ft_print_err(par->sp_l[1],
-						" file not found or no permission\n", par);
+			check_key_value(par);
 			u_keys[*nb_key] = id[i];
 			*nb_key += 1;
 		}
@@ -130,7 +128,7 @@ int	check_if_map(t_parsed *par, int nb_keys)
 		return (0);
 	while (id[i])
 	{
-		if (ft_strncmp(par->sp_l[0], id[i], ft_strlen(id[i])) == 0)
+		if (ft_strncmp(par->sp_l[0], id[i], (ft_strlen(id[i]) + 1)) == 0)
 			return (0);
 		i++;
 	}
@@ -140,7 +138,7 @@ int	check_if_map(t_parsed *par, int nb_keys)
 		err_map_pos(par);
 	else if (is_map_line && nb_keys == 6)
 		return (1);
-	else if (!is_map_line && nb_keys == 6)
+	else if (!is_map_line)
 		ft_print_err("", "Invalid char in map or invalid key\n", par);
 	return (0);
 }

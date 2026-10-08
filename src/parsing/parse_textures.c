@@ -62,13 +62,12 @@ static	char	*get_textures(t_file *file, char *key, int i_line)
 		split = ft_split(file->lines[i], ' ');
 		if (!split)
 			return (NULL);
-		if (split[0] && !ft_strncmp(split[0], key, ft_strlen(key)))
+		if (split[0] && !ft_strncmp(split[0], key, ft_strlen(key) + 1))
 		{
 			if (!split[1])
 				return (free_double(split), NULL);
-			res = split[1];
-			res[ft_strlen(res) - 1] = '\0';
-			return (free(split[0]), free(split), res);
+			res = ft_strtrim(split[1], "\n");
+			return (free_double(split), res);
 		}
 		free_double(split);
 		i++;
