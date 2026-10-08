@@ -26,9 +26,13 @@ int	key_press(int keycode, void *param)
 		data->key_w = 1;
 	else if (keycode == 115 || keycode == 65364)
 		data->key_s = 1;
-	else if (keycode == 97 || keycode == 65361)
+	else if (keycode == 97)
+		data->key_a = 1;
+	else if (keycode == 100)
+		data->key_d = 1;
+	else if (keycode == 65361)
 		data->key_left = 1;
-	else if (keycode == 100 || keycode == 65363)
+	else if (keycode == 65363)
 		data->key_right = 1;
 	return (0);
 }
@@ -43,9 +47,9 @@ int	key_release(int keycode, void *param)
 	else if (keycode == 115 || keycode == 65364)
 		data->key_s = 0;
 	else if (keycode == 97)
-		data->key_left = 0;
+		data->key_a = 0;
 	else if (keycode == 100)
-		data->key_right = 0;
+		data->key_d = 0;
 	else if (keycode == 65361)
 		data->key_left = 0;
 	else if (keycode == 65363)
@@ -60,7 +64,8 @@ int	game_loop(void *param)
 
 	data = (t_game *)param;
 	updated = 0;
-	if (data->key_w || data->key_s || data->key_left || data->key_right)
+	if (data->key_w || data->key_s || data->key_a || data->key_d
+		|| data->key_left || data->key_right)
 	{
 		update_player(data);
 		updated = 1;

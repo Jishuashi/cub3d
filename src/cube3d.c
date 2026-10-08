@@ -65,7 +65,7 @@ void	start(t_game *data)
 	draw_background(data);
 	draw_walls(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->screen.image, 0, 0);
-	ft_putstr_fd("Controls: W/S move, A/D turn, Q or ESC quits\n", 1);
+	ft_putstr_fd("Controls: W/S move, A/D strafe, arrows turn, ESC quits\n", 1);
 	mlx_hook(data->win, 2, 1L << 0, (int (*)())key_press, data);
 	mlx_key_hook(data->win, key_release, data);
 	mlx_hook(data->win, 17, 0, (int (*)())close_window, data);
