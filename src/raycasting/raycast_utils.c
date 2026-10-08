@@ -5,13 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/17 10:18:04 by louka2b           #+#    #+#             */
+/*   Created: 2026/09/17 10:18:04 by ldeplace          #+#    #+#             */
 /*   Updated: 2026/09/29 15:20:41 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
 
+/**
+ * Initializes the Y step and the first Y boundary distance of a ray.
+ *
+ * @param data Game structure.
+ * @param ray Ray to initialize.
+ */
 static void	init_ray_y(t_game *data, t_ray *ray)
 {
 	if (ray->dir_y < 0)
@@ -26,6 +32,16 @@ static void	init_ray_y(t_game *data, t_ray *ray)
 	}
 }
 
+/**
+ * Initializes a ray for a screen column.
+ *
+ * Sets its direction, starting cell, step and distances to the first grid
+ * lines.
+ *
+ * @param data Game structure.
+ * @param ray Ray to initialize.
+ * @param x Screen column.
+ */
 void	init_ray(t_game *data, t_ray *ray, int x)
 {
 	double	camera_x;
@@ -50,6 +66,13 @@ void	init_ray(t_game *data, t_ray *ray, int x)
 	init_ray_y(data, ray);
 }
 
+/**
+ * Tells whether a ray is in a wall or outside the map.
+ *
+ * @param data Game structure.
+ * @param ray Ray with its current cell.
+ * @return 1 if the cell is a wall, a space or out of bounds, 0 otherwise.
+ */
 int	ray_hits_wall(t_game *data, t_ray *ray)
 {
 	if (ray->map_y < 0 || ray->map_y >= (int)data->map->heigh

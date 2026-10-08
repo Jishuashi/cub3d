@@ -12,6 +12,13 @@
 
 #include "../includes/cube3d.h"
 
+/**
+ * Duplicates a NULL-terminated array of strings.
+ *
+ * @param map Grid to copy.
+ * @param row Number of rows.
+ * @return The new grid, or NULL on allocation failure.
+ */
 char	**copy_map(char **map, size_t row)
 {
 	char	**copy;

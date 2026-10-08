@@ -1,0 +1,10 @@
+C 28,157,186
+F 220,100,0
+EA ./textures/wall.xpm
+WE ./textures/wall.xpm
+SO ./textures/wall.xpm
+NO ./textures/wall.xpm
+
+111
+1N1
+111

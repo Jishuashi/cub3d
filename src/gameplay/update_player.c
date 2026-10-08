@@ -5,13 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/17 10:17:51 by louka2b           #+#    #+#             */
+/*   Created: 2026/09/17 10:17:51 by ldeplace          #+#    #+#             */
 /*   Updated: 2026/09/29 15:23:04 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/movement.h"
 
+/**
+ * Applies the movements and rotations of the currently held keys.
+ *
+ * @param data Game structure.
+ */
 void	update_player(t_game *data)
 {
 	if (data->key_w)

@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/17 10:17:58 by louka2b           #+#    #+#             */
+/*   Created: 2026/09/17 10:17:58 by ldeplace          #+#    #+#             */
 /*   Updated: 2026/09/29 15:21:52 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -13,6 +13,13 @@
 #include "../includes/cube3d.h"
 #include "../includes/render.h"
 
+/**
+ * Selects the texture matching the face hit by a ray.
+ *
+ * @param data Game structure.
+ * @param ray Ray that hit a wall.
+ * @return The NO, SO, EA or WE texture.
+ */
 static t_texture	*get_texture(t_game *data, t_ray *ray)
 {
 	if (ray->side == 0 && ray->dir_x > 0)
@@ -24,6 +31,16 @@ static t_texture	*get_texture(t_game *data, t_ray *ray)
 	return (&data->assets->no_img);
 }
 
+/**
+ * Computes the texture column for a ray hit.
+ *
+ * The column is mirrored on faces seen from behind so textures are not
+ * reversed.
+ *
+ * @param ray Ray that hit a wall.
+ * @param texture Selected texture.
+ * @return Column index inside the texture.
+ */
 static int	get_texture_x(t_ray *ray, t_texture *texture)
 {
 	int	x;
@@ -39,6 +56,14 @@ static int	get_texture_x(t_ray *ray, t_texture *texture)
 	return (x);
 }
 
+/**
+ * Computes the texture row for a screen row.
+ *
+ * @param ray Ray that hit a wall.
+ * @param texture Selected texture.
+ * @param y Screen row.
+ * @return Row index inside the texture.
+ */
 static int	get_texture_y(t_ray *ray, t_texture *texture, int y)
 {
 	int	d;
@@ -53,6 +78,13 @@ static int	get_texture_y(t_ray *ray, t_texture *texture, int y)
 	return (tex_y);
 }
 
+/**
+ * Draws the textured wall slice of one screen column.
+ *
+ * @param data Game structure.
+ * @param ray Ray that hit a wall.
+ * @param screen_x Screen column.
+ */
 void	draw_wall_column(t_game *data, t_ray *ray, int screen_x)
 {
 	t_texture	*texture;

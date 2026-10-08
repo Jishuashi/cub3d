@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/17 10:18:23 by louka2b           #+#    #+#             */
-/*   Updated: 2026/09/17 12:48:54 by louka2b          ###   ########.fr       */
+/*   Created: 2026/09/17 10:18:23 by ldeplace          #+#    #+#             */
+/*   Updated: 2026/09/17 12:48:54 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/cube3d.h"
 
+/**
+ * Frees every allocated resource, prints an error and exits.
+ *
+ * @param data Game structure.
+ * @param file Raw file content.
+ * @param message Error message to print.
+ */
 static void	init_error(t_game *data, t_file *file, char *message)
 {
 	free_file(file);
@@ -24,6 +31,16 @@ static void	init_error(t_game *data, t_file *file, char *message)
 	exit(1);
 }
 
+/**
+ * Parses and validates the map section of the file.
+ *
+ * Exits with an error if the map cannot be built, has not exactly one player
+ * or is not closed by walls.
+ *
+ * @param data Game structure receiving the map.
+ * @param file Raw file content.
+ * @param map_line Index of the first map line.
+ */
 static void	init_map(t_game *data, t_file *file, int map_line)
 {
 	int	is_valid;
@@ -47,6 +64,15 @@ static void	init_map(t_game *data, t_file *file, int map_line)
 	ft_putstr_fd("Map loaded successfully\n", 1);
 }
 
+/**
+ * Initializes the map, textures, MLX and colors.
+ *
+ * Exits with an error message if any step fails.
+ *
+ * @param data Game structure to fill.
+ * @param file Raw file content.
+ * @param map_line Index of the first map line.
+ */
 void	init(t_game *data, t_file *file, int map_line)
 {
 	init_map(data, file, map_line);

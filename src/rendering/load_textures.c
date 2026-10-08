@@ -12,6 +12,14 @@
 
 #include "../includes/cube3d.h"
 
+/**
+ * Loads one XPM file into a texture.
+ *
+ * @param mlx MLX connection.
+ * @param path Path of the XPM file.
+ * @param texture Texture to fill.
+ * @return 1 on success, 0 on failure.
+ */
 static int	load_texture(void *mlx, char *path, t_texture *texture)
 {
 	texture->image = mlx_xpm_file_to_image(mlx, path, &texture->width,
@@ -29,6 +37,15 @@ static int	load_texture(void *mlx, char *path, t_texture *texture)
 	return (1);
 }
 
+/**
+ * Loads the four wall textures (NO, SO, EA, WE).
+ *
+ * Releases any loaded image if one fails.
+ *
+ * @param mlx MLX connection.
+ * @param assets Assets holding the paths and receiving the images.
+ * @return 1 on success, 0 on failure.
+ */
 int	load_textures(void *mlx, t_assets *assets)
 {
 	if (!mlx || !assets)
@@ -41,6 +58,12 @@ int	load_textures(void *mlx, t_assets *assets)
 	return (1);
 }
 
+/**
+ * Destroys the loaded texture images and resets them.
+ *
+ * @param mlx MLX connection.
+ * @param assets Assets holding the images.
+ */
 void	free_texture_images(void *mlx, t_assets *assets)
 {
 	if (!mlx || !assets)

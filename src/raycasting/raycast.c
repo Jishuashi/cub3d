@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/15 13:50:28 by louka             #+#    #+#             */
+/*   Created: 2026/09/15 13:50:28 by ldeplace          #+#    #+#             */
 /*   Updated: 2026/09/29 15:23:53 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -15,6 +15,14 @@
 #include "../includes/render.h"
 #include "../includes/raycast.h"
 
+/**
+ * Advances a ray cell by cell (DDA) until it hits a wall.
+ *
+ * Records on which side (0 = vertical, 1 = horizontal) the wall was hit.
+ *
+ * @param data Game structure.
+ * @param ray Ray to advance.
+ */
 static void	cast_ray(t_game *data, t_ray *ray)
 {
 	while (!ray_hits_wall(data, ray))
@@ -34,6 +42,15 @@ static void	cast_ray(t_game *data, t_ray *ray)
 	}
 }
 
+/**
+ * Computes the data needed to draw the wall hit by a ray.
+ *
+ * Gives the perpendicular distance, the vertical draw range and the exact hit
+ * position on the wall.
+ *
+ * @param data Game structure.
+ * @param ray Ray that hit a wall.
+ */
 static void	prepare_wall(t_game *data, t_ray *ray)
 {
 	if (ray->side == 0)
@@ -56,6 +73,14 @@ static void	prepare_wall(t_game *data, t_ray *ray)
 	ray->wall_x -= floor(ray->wall_x);
 }
 
+/**
+ * Renders one screen column.
+ *
+ * Casts the ray of the column and draws the wall slice it hits.
+ *
+ * @param data Game structure.
+ * @param screen_x Screen column to render.
+ */
 void	render_column(t_game *data, int screen_x)
 {
 	t_ray		ray;

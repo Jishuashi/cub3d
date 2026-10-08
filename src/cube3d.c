@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: louka2b <louka2b@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ldeplace <ldeplace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 13:58:21 by hchartie          #+#    #+#             */
-/*   Updated: 2026/09/17 12:48:54 by louka2b          ###   ########.fr       */
+/*   Updated: 2026/09/17 12:48:54 by ldeplace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 #include "includes/player.h"
 #include "includes/render.h"
 
+/**
+ * Window close hook: asks the MLX loop to stop.
+ *
+ * @param param Pointer to the game structure.
+ * @return Always 0.
+ */
 static int	close_window(void *param)
 {
 	t_game	*data;
@@ -24,6 +30,16 @@ static int	close_window(void *param)
 	return (0);
 }
 
+/**
+ * Program entry point.
+ *
+ * Checks the argument and the .cub file, parses the map, runs the game and
+ * frees everything on exit.
+ *
+ * @param ac Argument count (exactly one map expected).
+ * @param av Argument values; av[1] is the .cub path.
+ * @return 0 on success, 1 on error.
+ */
 int	main(int ac, char *av[])
 {
 	t_game	data;
@@ -52,6 +68,14 @@ int	main(int ac, char *av[])
 	return (free_file(file), free_textures(data.assets), free_map(data.map), 0);
 }
 
+/**
+ * Creates the window and runs the game loop.
+ *
+ * Builds the screen image, places the player, draws the first frame and
+ * registers the key, close and loop hooks before entering mlx_loop.
+ *
+ * @param data Game structure.
+ */
 void	start(t_game *data)
 {
 	data->win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");

@@ -12,6 +12,16 @@
 
 #include "../includes/cube3d.h"
 
+/**
+ * Recursive flood fill checking that a region is closed by walls.
+ *
+ * Visited cells are marked 'V'. Reaching a space, an empty cell or the grid
+ * border means the map is open.
+ *
+ * @param map Working copy of the grid.
+ * @param pos Current position (freed by the function).
+ * @return 1 if closed, 0 if open, -1 on allocation failure.
+ */
 int	flood_fill(char **map, t_point *pos)
 {
 	int	r1;

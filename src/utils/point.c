@@ -12,6 +12,13 @@
 
 #include "../includes/utils.h"
 
+/**
+ * Allocates a point with the given coordinates.
+ *
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @return The new point, or NULL on allocation failure.
+ */
 t_point	*get_point(int x, int y)
 {
 	t_point	*res;
@@ -26,6 +33,14 @@ t_point	*get_point(int x, int y)
 	return (res);
 }
 
+/**
+ * Sets the coordinates of a point.
+ *
+ * @param point Point to modify.
+ * @param x X coordinate.
+ * @param y Y coordinate.
+ * @return The same point.
+ */
 t_point	*set_point(t_point *point, int x, int y)
 {
 	point->x = x;
