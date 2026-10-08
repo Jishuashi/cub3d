@@ -52,6 +52,17 @@ int	check_map(t_map *map)
 	return (free_double(copy), 1);
 }
 
+/**
+ * Validates one map cell.
+ *
+ * Rejects unknown characters and runs a flood fill from walkable cells (spawn
+ * or '0') to detect an open map.
+ *
+ * @param copy Working copy of the grid, modified by the fill.
+ * @param curr Character of the cell.
+ * @param pos Cell position (freed by the function).
+ * @return 1 if valid, 0 if invalid, -1 on allocation failure.
+ */
 static int	is_valid(char **copy, char curr, t_point *pos)
 {
 	int	res;

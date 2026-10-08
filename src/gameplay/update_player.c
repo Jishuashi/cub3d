@@ -12,6 +12,11 @@
 
 #include "../includes/movement.h"
 
+/**
+ * Applies the movements and rotations of the currently held keys.
+ *
+ * @param data Game structure.
+ */
 void	update_player(t_game *data)
 {
 	if (data->key_w)

@@ -15,6 +15,15 @@
 #include "../includes/player.h"
 #include "../includes/render.h"
 
+/**
+ * Key press hook.
+ *
+ * Quits on ESC or Q, otherwise raises the flag of the pressed movement key.
+ *
+ * @param keycode Key symbol.
+ * @param param Pointer to the game structure.
+ * @return Always 0.
+ */
 int	key_press(int keycode, void *param)
 {
 	t_game	*data;
@@ -37,6 +46,13 @@ int	key_press(int keycode, void *param)
 	return (0);
 }
 
+/**
+ * Key release hook: clears the flag of the released key.
+ *
+ * @param keycode Key symbol.
+ * @param param Pointer to the game structure.
+ * @return Always 0.
+ */
 int	key_release(int keycode, void *param)
 {
 	t_game	*data;
@@ -57,6 +73,12 @@ int	key_release(int keycode, void *param)
 	return (0);
 }
 
+/**
+ * Per-frame hook: updates the player and redraws if a key is held.
+ *
+ * @param param Pointer to the game structure.
+ * @return Always 0.
+ */
 int	game_loop(void *param)
 {
 	t_game	*data;
@@ -75,6 +97,17 @@ int	game_loop(void *param)
 	return (0);
 }
 
+/**
+ * Sets the player's position and view from its spawn cell.
+ *
+ * The position is the cell center; direction and camera plane follow the
+ * orientation.
+ *
+ * @param data Game structure.
+ * @param x Column of the spawn cell.
+ * @param y Row of the spawn cell.
+ * @param orientation 'N', 'S', 'E' or 'W'.
+ */
 static void	set_player(t_game *data, int x, int y, char orientation)
 {
 	data->player.x = x + 0.5;
@@ -85,6 +118,11 @@ static void	set_player(t_game *data, int x, int y, char orientation)
 	data->player.plane_y = data->player.dir_x * 0.66;
 }
 
+/**
+ * Finds the spawn character in the map and initializes the player.
+ *
+ * @param data Game structure.
+ */
 void	init_player(t_game *data)
 {
 	int		x;

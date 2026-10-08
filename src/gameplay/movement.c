@@ -15,6 +15,15 @@
 #include "../includes/render.h"
 #include <math.h>
 
+/**
+ * Tells whether the map cell containing a point is walkable.
+ *
+ * @param data Game structure.
+ * @param x X coordinate in map units.
+ * @param y Y coordinate in map units.
+ * @return 1 if the cell is inside the map and not a wall or space, 0
+ * otherwise.
+ */
 static int	cell_walkable(t_game *data, double x, double y)
 {
 	int	map_x;
@@ -30,6 +39,16 @@ static int	cell_walkable(t_game *data, double x, double y)
 		&& data->map->grid[map_y][map_x] != ' ');
 }
 
+/**
+ * Tells whether the player can stand at a position.
+ *
+ * Checks the four corners of the player's collision box.
+ *
+ * @param data Game structure.
+ * @param x Target X coordinate.
+ * @param y Target Y coordinate.
+ * @return 1 if all four corners are walkable, 0 otherwise.
+ */
 static int	is_walkable(t_game *data, double x, double y)
 {
 	return (cell_walkable(data, x - PLAYER_RADIUS, y - PLAYER_RADIUS)
@@ -38,6 +57,16 @@ static int	is_walkable(t_game *data, double x, double y)
 		&& cell_walkable(data, x + PLAYER_RADIUS, y + PLAYER_RADIUS));
 }
 
+/**
+ * Moves the player, sliding along walls.
+ *
+ * The X and Y axes are tested separately so the player slides instead of
+ * stopping on contact.
+ *
+ * @param data Game structure.
+ * @param move_x Displacement along X.
+ * @param move_y Displacement along Y.
+ */
 void	move_player(t_game *data, double move_x, double move_y)
 {
 	if (is_walkable(data, data->player.x + move_x, data->player.y))
@@ -46,6 +75,12 @@ void	move_player(t_game *data, double move_x, double move_y)
 		data->player.y += move_y;
 }
 
+/**
+ * Rotates the view direction and the camera plane.
+ *
+ * @param data Game structure.
+ * @param angle Angle in radians (positive turns right).
+ */
 void	rotate_player(t_game *data, double angle)
 {
 	double	old_dir_x;
@@ -63,6 +98,11 @@ void	rotate_player(t_game *data, double angle)
 		+ data->player.plane_y * cos(angle);
 }
 
+/**
+ * Renders a full frame and displays it in the window.
+ *
+ * @param data Game structure.
+ */
 void	redraw(t_game *data)
 {
 	draw_background(data);
