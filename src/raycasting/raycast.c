@@ -60,6 +60,8 @@ static void	prepare_wall(t_game *data, t_ray *ray)
 	if (ray->perp_dist < 0.001)
 		ray->perp_dist = 0.001;
 	ray->line_height = (int)(SCREEN_HEIGHT / ray->perp_dist);
+	if (ray->line_height < 1)
+		ray->line_height = 1;
 	ray->draw_start = -ray->line_height / 2 + SCREEN_HEIGHT / 2;
 	ray->draw_end = ray->line_height / 2 + SCREEN_HEIGHT / 2;
 	if (ray->draw_start < 0)
