@@ -174,6 +174,4 @@ An AI assistant (Claude Code) was used as a helper, never as a replacement for u
 
 - **Testing:** running the project against the evaluation checklist (compilation, parsing errors, memory leaks with valgrind, movement and spawn orientation, texture orientation) and writing a test report.
 - **Test data:** generating the maps in `maps/valid/` and `maps/err/`, and the colored letter textures (`*_holder.xpm`).
-- **Documentation:** writing the function header comments of several source files and drafting this `README.md`.
 
-All AI-generated content was reviewed and tested by the authors.

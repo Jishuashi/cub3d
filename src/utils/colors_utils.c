@@ -6,7 +6,7 @@
 /*   By: hchartie <hchartie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 03:57:53 by hchartie          #+#    #+#             */
-/*   Updated: 2026/10/08 09:43:36 by hchartie         ###   ########.fr       */
+/*   Updated: 2026/10/08 15:34:02 by hchartie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	validate_color_components(t_parsed *parsed, char **split_val, char *var)
 		if (!check_int_str(split_val[i]))
 			color_error_exit(parsed, split_val, var,
 				" contains a non-numeric or negative value\n");
-		if (ft_strlen(split_val[i]) > 3)
+		if (ft_strlen(split_val[i]) > 3 || ft_atoi(split_val[i]) > 255)
 			color_error_exit(parsed, split_val, var,
 				" value out of range (0-255)\n");
 		i++;
